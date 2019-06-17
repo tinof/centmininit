@@ -1,6 +1,5 @@
 ZSTD_LOGROTATE_NGINX='y'
 ZSTD_LOGROTATE_PHPFPM='y'
-https://github.com/tinof/centmininit
 PHP_BROTLI='y'
 PHP_LZFOUR='y'
 PHP_LZF='y'
