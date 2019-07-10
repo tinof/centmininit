@@ -6,8 +6,8 @@
 AUTOTUNE_CLIENTMAXBODY='y'
 MARCH_TARGETNATIVE='y'
 
-PHP_PGO='y'
-PHP_PGO_ALWAYS='y'
+#PHP_PGO='y'
+#PHP_PGO_ALWAYS='y'
 #PHP_PGO_TRAINRUNS='120'
 
 #PHPPGO_INDEXPATH='/home/nginx/domains/cent2.thales.fi/public/index.php'
