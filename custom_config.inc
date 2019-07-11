@@ -2,8 +2,6 @@
 MARCH_TARGETNATIVE='n'
 GCCINTEL_PHP='y'
 
-EMAIL='tino.fotiou@gmail.com' 
-
 AUTOTUNE_CLIENTMAXBODY='y'
 
 #PHP_PGO='y'
