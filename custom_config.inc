@@ -3,6 +3,8 @@
 #MARCH_TARGETNATIVE='n'
 #GCCINTEL_PHP='y'
 
+EMAIL='tino.fotiou@gmail.com' 
+
 AUTOTUNE_CLIENTMAXBODY='y'
 MARCH_TARGETNATIVE='y'
 
@@ -11,7 +13,6 @@ MARCH_TARGETNATIVE='y'
 #PHP_PGO_TRAINRUNS='120'
 
 #PHPPGO_INDEXPATH='/home/nginx/domains/cent2.thales.fi/public/index.php'
-
 #PHPPGO_INDEXPATH_TWO='/home/nginx/domains/cent2.thales.fi/public/wp-content/plugins/wpperformancetester/benchmark.php'
 
 PHP_TUNING='y'
@@ -34,6 +35,10 @@ PHP_MEMCACHE='n'
 PHP_MEMCACHED='n'
 PHPIMAGICK='n'
 NSD_INSTALL='n'
+MEMCACHED_DISABLED=y  
+  
+  
+NGINX_ZERODT='y'  
 NGXDYNAMIC_NGXPAGESPEED='n'
 NGXDYNAMIC_BROTLI='y'
 NGINX_LIBBROTLI='y'
@@ -50,3 +55,5 @@ DEVTOOLSETSIX='n'
 DEVTOOLSETSEVEN='n'
 DEVTOOLSETEIGHT='y'
 NGINX_DEVTOOLSETGCC='y'
+
+#NGINX_VHOSTSTATS=y    
