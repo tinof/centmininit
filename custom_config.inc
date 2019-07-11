@@ -10,8 +10,8 @@ AUTOTUNE_CLIENTMAXBODY='y'
 #PHP_PGO_ALWAYS='y'
 #PHP_PGO_TRAINRUNS='120'
 
-#PHPPGO_INDEXPATH='/home/nginx/domains/cent2.thales.fi/public/index.php'
-#PHPPGO_INDEXPATH_TWO='/home/nginx/domains/cent2.thales.fi/public/wp-content/plugins/wpperformancetester/benchmark.php'
+#PHPPGO_INDEXPATH='/home/nginx/domains/XXX/public/index.php'
+#PHPPGO_INDEXPATH_TWO='/home/nginx/domains/XXX/public/wp-content/plugins/wpperformancetester/benchmark.php'
 
 PHP_TUNING='y'
 
@@ -42,6 +42,7 @@ NGXDYNAMIC_BROTLI='y'
 NGINX_LIBBROTLI='y'
 AUTOHARDTUNE_NGINXBACKLOG='y'
 
+MARIADB_INSTALLTENTHREE='y'
 #MARIADB_INSTALLTENFOUR='y'
 
 LETSENCRYPT_DETECT='y'
