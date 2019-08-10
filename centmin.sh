@@ -2,12 +2,13 @@
 # create initial persistent config file to override centmin.sh defaults
 # https://centminmod.com/upgrade.html#persistent
 mkdir -p /etc/centminmod
-touch /etc/centminmod/custom_config.inc
 yum -y install nano
+wget https://raw.githubusercontent.com/tinof/centmininit/master/custom_config.inc -O /etc/centminmod/custom_config.inc
 
-# install centmin mod latest beta with php-fpm 7.2 default
-# https://community.centminmod.com/threads/centmin-mod-09-beta-branch-testing.4128/
-yum -y update; curl -O https://centminmod.com/betainstaller72.sh && chmod 0700 betainstaller72.sh && bash betainstaller72.sh
+
+
+# install centmin mod latest beta with php-fpm 7.3 default
+yum -y update; curl -O https://centminmod.com/betainstaller73.sh && chmod 0700 betainstaller73.sh && bash betainstaller73.sh
 
 # enable letsencrypt ssl certificate + dual RSA+ECDSA ssl certs https://centminmod.com/acmetool/
 echo "LETSENCRYPT_DETECT='y'" >> /etc/centminmod/custom_config.inc
