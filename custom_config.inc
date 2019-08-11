@@ -1,4 +1,3 @@
-##For Upcloud
 MARCH_TARGETNATIVE='n'
 GCCINTEL_PHP='y'
 
@@ -10,7 +9,6 @@ WP_FASTCGI_CACHE='y'
 
 PHP_PGO='y'
 #PHP_PGO_ALWAYS='y'
-#PHP_PGO_TRAINRUNS='120'
 
 #PHPPGO_INDEXPATH='/home/nginx/domains/XXX/public/index.php'
 
