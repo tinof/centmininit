@@ -1,3 +1,4 @@
+MARCH_TARGETNATIVE_ALWAYS='y'
 AUTOTUNE_CLIENTMAXBODY='y'
   
 EMAIL=tino.fotiou@gmail.com
@@ -36,7 +37,7 @@ NSD_INSTALL='n'
 MEMCACHED_DISABLED='y' 
 
 ##For Kernel Linux > 5.1.x
-#NGINX_IORURING_PATCH='y' 
+NGINX_IORURING_PATCH='y' 
 
 ##Disable if custom configs  
 NGINX_ALLOWOVERRIDE='y'  
