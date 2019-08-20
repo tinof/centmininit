@@ -31,33 +31,11 @@ wget -O /usr/local/csf/bin/regex.custom.pm https://gist.github.com/centminmod/f5
 csf -ra
 
 
-##### Additional tools
-echo "Install ncdu............."
-yum -y install ncdu
-echo "Install iotop............"
-yum -y install iotop
-echo "Install htop............."
-yum -y install htop
-echo "Installing ngxtop........"
-pip install ngxtop
 
 
 # Creating tools dir
 mkdir /root/tools
 cd /root/tools/
-
-### Addons
-#--- mysqladmin_shell addon
-wget -O mysqladmin_shell.sh https://github.com/centminmod/centminmod/raw/123.09beta01/addons/mysqladmin_shell.sh
-echo
-chmod +x mysqladmin_shell.sh
-#--- Make it global executable
-cp mysqladmin_shell.sh /usr/bin/mysqladmin_shell
-chmod +x /usr/bin/mysqladmin_shell
-
-#--- Centminmod Image optimization
-cd /root/tools
-git clone --depth=1 https://github.com/centminmod/optimise-images
 
 
 if [[ -f ~/.nanorc ]]; then
