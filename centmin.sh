@@ -32,29 +32,4 @@ csf -ra
 
 
 
-
-# Creating tools dir
-mkdir /root/tools
-cd /root/tools/
-
-
-if [[ -f ~/.nanorc ]]; then
-  cp -a ~/.nanorc{,.bak}
-  #--- Install .nanorc
-  git clone https://github.com/scopatz/nanorc.git ~/.nano
-  echo
-  spinner
-  echo
-  cat ~/.nano/nanorc >>~/.nanorc
-fi
-
-echo "Changing prompt..."
-#--- Commenting current prompt
-sed -i 's/^export PS1="/# export PS1="/g' ~/.bashrc
-#--- Appeding new prompt to ~/.bashrc
-cat <<'EOF' >>~/.bashrc
-# Custom Prompt
-export PS1="[\u@\H]-[\w] \\$: "
-EOF
-
 echo "Done!"
