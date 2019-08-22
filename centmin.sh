@@ -6,13 +6,9 @@ yum -y install nano
 wget https://raw.githubusercontent.com/tinof/centmininit/master/custom_config.inc -O /etc/centminmod/custom_config.inc
 
 
-
 # install centmin mod latest beta with php-fpm 7.3 default
 yum -y update; curl -O https://centminmod.com/betainstaller73.sh && chmod 0700 betainstaller73.sh && bash betainstaller73.sh
 
-# install and configure auditd https://community.centminmod.com/posts/37680/
-echo "AUDITD_ENABLE='y'" >> /etc/centminmod/custom_config.inc
-/usr/local/src/centminmod/tools/auditd.sh setup
 
 # setup extended CSF Firewall blocklists https://community.centminmod.com/posts/50060/
 /usr/local/src/centminmod/tools/csf-advancetweaks.sh
@@ -29,7 +25,6 @@ sed -i "s|CUSTOM4_LOG = .*|CUSTOM4_LOG = \"/var/log/nginx/localhost.error.log\"|
 egrep 'CUSTOM1_LOG|CUSTOM2_LOG|CUSTOM3_LOG|CUSTOM4_LOG' /etc/csf/csf.conf
 wget -O /usr/local/csf/bin/regex.custom.pm https://gist.github.com/centminmod/f5551b92b8aba768c3b4db84c57e756d/raw/regex.custom.pm
 csf -ra
-
 
 
 echo "Done!"
