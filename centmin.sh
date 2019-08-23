@@ -26,5 +26,14 @@ egrep 'CUSTOM1_LOG|CUSTOM2_LOG|CUSTOM3_LOG|CUSTOM4_LOG' /etc/csf/csf.conf
 wget -O /usr/local/csf/bin/regex.custom.pm https://gist.github.com/centminmod/f5551b92b8aba768c3b4db84c57e756d/raw/regex.custom.pm
 csf -ra
 
+mkdir -p /root/tools
+cd /root/tools/
+wget -O mysqladmin_shell.sh https://github.com/centminmod/centminmod/raw/123.09beta01/addons/mysqladmin_shell.sh
+chmod +x mysqladmin_shell.sh
+
+cd /usr/local/src/centmin-v1.2.3mod/addons/
+chmod +x wpcli.sh
+./wpcli.sh install
+
 
 echo "Done!"
