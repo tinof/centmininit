@@ -4,7 +4,7 @@ AUTOTUNE_CLIENTMAXBODY='y'
 WP_FASTCGI_CACHE='y' 
  
 PHP_PGO='y'
-PHP_PGO_ALWAYS='y'
+#PHP_PGO_ALWAYS='y'
 
 #PHPPGO_INDEXPATH='/home/nginx/domains/whmcs.icarus.fi/public/index.php'
 #PHPPGO_INDEXPATH_TWO='/home/nginx/domains/icarus.fi/public/index.php'
