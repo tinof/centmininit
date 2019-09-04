@@ -6,8 +6,8 @@ WP_FASTCGI_CACHE='y'
 PHP_PGO='y'
 #PHP_PGO_ALWAYS='y'
 
-#PHPPGO_INDEXPATH='/home/nginx/domains/whmcs.icarus.fi/public/index.php'
-#PHPPGO_INDEXPATH_TWO='/home/nginx/domains/icarus.fi/public/index.php'
+#PHPPGO_INDEXPATH='/home/nginx/domains/XX/public/index.php'
+#PHPPGO_INDEXPATH_TWO='/home/nginx/domains/XX/public/index.php'
 
 PHP_TUNING='y'
 
@@ -21,8 +21,6 @@ PHP_MEMCACHE='n'
 PHP_MEMCACHED='n'
 PHPIMAGICK='n'
 
-## FOR WHMCS
-#PHPIONCUBE='y'
 
 ZSTD_LOGROTATE_NGINX='y'
 ZSTD_LOGROTATE_PHPFPM='y'
