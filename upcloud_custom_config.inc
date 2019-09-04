@@ -9,8 +9,8 @@ WP_FASTCGI_CACHE='y'
 PHP_PGO='y'
 #PHP_PGO_ALWAYS='y'
 
-#PHPPGO_INDEXPATH='/home/nginx/domains/whmcs.icarus.fi/public/index.php'
-#PHPPGO_INDEXPATH_TWO='/home/nginx/domains/icarus.fi/public/index.php'
+#PHPPGO_INDEXPATH='/home/nginx/domains//public/index.php'
+#PHPPGO_INDEXPATH_TWO='/home/nginx/domains//public/index.php'
 
 PHP_TUNING='y'
 
@@ -23,9 +23,6 @@ PHPREDIS='n'
 PHP_MEMCACHE='n'
 PHP_MEMCACHED='n'
 PHPIMAGICK='n'
-
-## FOR WHMCS
-#PHPIONCUBE='y'
 
 ZSTD_LOGROTATE_NGINX='y'
 ZSTD_LOGROTATE_PHPFPM='y'
@@ -43,7 +40,7 @@ NSD_INSTALL='n'
 MEMCACHED_DISABLED='y' 
 NSD_DISABLED='n'  
 
-##For Kernel Linux > 5.1.x
+##For Linux Kernel > 5.1.x
 NGINX_IORURING_PATCH='y' 
 
 ##Upgrading NGINX. Disable if custom configs  
