@@ -37,7 +37,7 @@ MEMCACHED_DISABLED='y'
 NSD_DISABLED='n'  
 
 ##For Kernel Linux > 5.1.x
-NGINX_IORURING_PATCH='y' 
+NGINX_IOURING_PATCH='y' 
 
 ##Upgrading NGINX. Disable if custom configs  
 #NGINX_ALLOWOVERRIDE='y'  
