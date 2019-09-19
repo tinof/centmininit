@@ -7,5 +7,6 @@ wget http://gnu.mirror.constant.com/gcc/gcc-$GCC_VERSION/gcc-$GCC_VERSION.tar.gz
 tar zxf gcc-$GCC_VERSION.tar.gz
 cd gcc-$GCC_VERSION
 ./contrib/download_prerequisites
+cd ..
 mkdir gcc-build
 cd gcc-build
