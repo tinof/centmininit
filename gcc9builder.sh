@@ -1,3 +1,4 @@
+yum update
 yum -y group install "Development Tools"
 yum -y install redhat-lsb
 yum -y install nano
