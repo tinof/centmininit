@@ -1,3 +1,5 @@
+yum group install "Development Tools"
+yum install redhat-lsb
 mkdir gccb
 cd gccb
 git clone https://github.com/BobSteagall/gcc-builder.git
