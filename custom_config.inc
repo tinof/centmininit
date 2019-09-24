@@ -1,8 +1,10 @@
+PHP_MYSQLSOCKPATH='/var/lib/mysql'
+
 AUTOTUNE_CLIENTMAXBODY='y'
  
 FPM_WAKEUP_PATCH='y'
- 
-WP_FASTCGI_CACHE='y' 
+ WP_FASTCGI_CACHE='y' 
+WPPLUGINS_ALL='n'
  
 PHP_PGO='y'
 #PHP_PGO_ALWAYS='y'
@@ -68,6 +70,9 @@ DEVTOOLSETEIGHT='y'
 #DEVTOOLSETNINE='y'
 NGINX_DEVTOOLSETGCC='y'
 
-#NGINX_VHOSTSTATS=y    
-#VHOSTCTRL_CLOUDFLAREINC='y'
-#VHOSTCTRL_AUTOPROTECTINC='n'
+CUSTOM_CURLRPM='y'
+CUSTOM_CURLRPMVER='7.66.0-1.1'       # custom curl/libcurl version
+CUSTOM_CURLLIBSSHVER='1.8.2-1.0'     # libssh2 version
+CUSTOM_CURLRPMCARESVER='1.15.0-4.0'  # c-ares version
+CUSTOM_CURLRPMSYSURL='http://mirror.city-fan.org/ftp/contrib/sysutils/Mirroring'
+CUSTOM_CURLRPMLIBURL='http://mirror.city-fan.org/ftp/contrib/libraries'
