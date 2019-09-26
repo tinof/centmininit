@@ -17,7 +17,7 @@ DISTTAG='el7'
 RPMSAVE_PATH="$DIR_TMP"
 # whether to test install the RPMs build
 # or just build RPMs without installing
-GCC_YUMINSTALL='n'
+GCC_YUMINSTALL='y'
 
 # SVN GCC 7 or 8 or 9
 GCCSVN_VER='9'
