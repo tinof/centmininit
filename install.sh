@@ -20,21 +20,21 @@ RPMSAVE_PATH="$DIR_TMP"
 GCC_YUMINSTALL='y'
 
 # SVN GCC 7 or 8 or 9
-GCCSVN_VER='9'
+GCCSVN_VER='10'
 GCC_SVN='y'
-GCC_VER='9.2.0'
+GCC_VER='10.0'
 GCC_PREFIX="/opt/gcc-${GCC_VER}"
 # download from ftp://gcc.gnu.org/pub/gcc/infrastructure/
 # or via wget code for more reliability as
 # ./contrib/download_prerequisites script sees to fail to
 # download some required packages each time it runs
-GCC_DOWNLOADPREREQ='n'
+GCC_DOWNLOADPREREQ='y'
 GCC_LTO='y'
 GCC_GOLD='y'
 # Profile Guided Optimiized GCC build
 # using profiledbootstrap
 # https://gcc.gnu.org/install/build.html
-GCC_PGO='n'
+GCC_PGO='y'
 BOOTCFLAGS='y'
 BINUTILS_VER='2.32'
 
@@ -45,7 +45,7 @@ MPC_FILE='mpc-1.0.3.tar.gz'
 MPFR_FILE='mpfr-3.1.4.tar.bz2'
 
 CLANG_FOUR='n'
-OPT_LEVEL=-O2
+OPT_LEVEL=-O3
 CCACHE='y'
 CENTMINLOGDIR='/root/centminlogs'
 GCC_SNAPSHOTSEVEN='http://www.netgull.com/gcc/snapshots/LATEST-7/'
