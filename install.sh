@@ -22,7 +22,7 @@ GCC_YUMINSTALL='y'
 # SVN GCC 7 or 8 or 9
 GCCSVN_VER='9'
 GCC_SVN='y'
-GCC_VER='9.2.0'
+GCC_VER='9.1.0'
 GCC_PREFIX="/opt/gcc-${GCC_VER}"
 # download from ftp://gcc.gnu.org/pub/gcc/infrastructure/
 # or via wget code for more reliability as
@@ -45,7 +45,7 @@ MPC_FILE='mpc-1.0.3.tar.gz'
 MPFR_FILE='mpfr-3.1.4.tar.bz2'
 
 CLANG_FOUR='n'
-OPT_LEVEL=-O3
+OPT_LEVEL=-O2
 CCACHE='y'
 CENTMINLOGDIR='/root/centminlogs'
 GCC_SNAPSHOTSEVEN='http://www.netgull.com/gcc/snapshots/LATEST-7/'
