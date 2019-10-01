@@ -27,9 +27,7 @@ wget -O /usr/local/csf/bin/regex.custom.pm https://gist.github.com/centminmod/f5
 csf -ra
 
 mkdir -p /root/tools
-cd /root/tools/
-wget -O mysqladmin_shell.sh https://github.com/centminmod/centminmod/raw/123.09beta01/addons/mysqladmin_shell.sh
-chmod +x mysqladmin_shell.sh
 
+yum -y install wget; wget https://raw.githubusercontent.com/tinof/centmininit/master/install.sh; chmod +x install.sh; ./install.sh install9
 
 echo "Done!"
