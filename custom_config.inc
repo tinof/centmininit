@@ -7,15 +7,14 @@ DISABLE_IPVSIX='y'
 
 AUTOTUNE_CLIENTMAXBODY='y'
  
-#NGINX_ZLIBNG='y' 
-CLOUDFLARE_ZLIB='y'
+NGINX_ZLIBNG='y' 
+#CLOUDFLARE_ZLIB='y'
 
-CLOUDFLARE_ZLIBPHP='y'
+#CLOUDFLARE_ZLIBPHP='y'
 PHP_LIBZIP='y'
 PHP_ARGON='y'
 LIBZIP_VER='1.5.2'          # required for PHP 7.2 + with libsodium & argon2
 LIBSODIUM_VER='1.0.18'      # https://github.com/jedisct1/libsodium/releases
-LIBSODIUM_NATIVE='y'        # optimise for specific cpu not portable between different cpu modules
 LIBARGON_VER='20190702'     # https://github.com/P-H-C/phc-winner-argon2
  
 FPM_WAKEUP_PATCH='y'
