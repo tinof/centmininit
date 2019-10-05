@@ -11,11 +11,11 @@ AUTOTUNE_CLIENTMAXBODY='y'
 #CLOUDFLARE_ZLIB='n'
 
 #CLOUDFLARE_ZLIBPHP='n'
-PHP_LIBZIP='y'
-PHP_ARGON='y'
-LIBZIP_VER='1.5.2'          # required for PHP 7.2 + with libsodium & argon2
-LIBSODIUM_VER='1.0.18'      # https://github.com/jedisct1/libsodium/releases
-LIBARGON_VER='20190702'     # https://github.com/P-H-C/phc-winner-argon2
+#PHP_LIBZIP='y'
+#PHP_ARGON='y'
+#LIBZIP_VER='1.5.2'          # required for PHP 7.2 + with libsodium & argon2
+#LIBSODIUM_VER='1.0.18'      # https://github.com/jedisct1/libsodium/releases
+#LIBARGON_VER='20190702'     # https://github.com/P-H-C/phc-winner-argon2
  
 FPM_WAKEUP_PATCH='y'
 WP_FASTCGI_CACHE='y' 
@@ -48,14 +48,14 @@ LIBRESSL_SWITCH='n'
 CLANG='n'
 DEVTOOLSETSIX='n'
 DEVTOOLSETSEVEN='n'
-DEVTOOLSETEIGHT='n'
-DEVTOOLSETNINE='y'
+DEVTOOLSETEIGHT='y'
+#DEVTOOLSETNINE='y'
 NGINX_DEVTOOLSETGCC='y'
 #GENERAL_DEVTOOLSETGCC='y'     # Use devtoolset-4 GCC 5.3 whereever possible/coded
 #CRYPTO_DEVTOOLSETGCC='y' 
  
-CUSTOM_CURLRPM='y'
-CUSTOM_CURLRPMVER='7.66.0-1.1'       # custom curl/libcurl version
+#CUSTOM_CURLRPM='y'
+#CUSTOM_CURLRPMVER='7.66.0-1.1'       # custom curl/libcurl version
 
 PHP_PGO='y'
 PHP_PGO_ALWAYS='y'
@@ -85,4 +85,3 @@ MEMCACHED_INSTALL='n'
 NSD_INSTALL='n'
 MEMCACHED_DISABLED='y' 
 NSD_DISABLED='y'  
-MARCH_TARGETNATIVE_ALWAYS='y'
