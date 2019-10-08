@@ -22,7 +22,7 @@ GCC_YUMINSTALL='n'
 # SVN GCC 7 or 8 or 9
 GCCSVN_VER='8'
 GCC_SVN='y'
-GCC_VER='7.2.1'
+GCC_VER='9.2.0'
 GCC_PREFIX="/opt/gcc-${GCC_VER}"
 # download from ftp://gcc.gnu.org/pub/gcc/infrastructure/
 # or via wget code for more reliability as
