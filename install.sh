@@ -20,7 +20,7 @@ RPMSAVE_PATH="$DIR_TMP"
 GCC_YUMINSTALL='n'
 
 # SVN GCC 7 or 8 or 9
-GCCSVN_VER='8'
+GCCSVN_VER='9'
 GCC_SVN='y'
 GCC_VER='9.2.0'
 GCC_PREFIX="/opt/gcc-${GCC_VER}"
@@ -28,7 +28,7 @@ GCC_PREFIX="/opt/gcc-${GCC_VER}"
 # or via wget code for more reliability as
 # ./contrib/download_prerequisites script sees to fail to
 # download some required packages each time it runs
-GCC_DOWNLOADPREREQ='n'
+GCC_DOWNLOADPREREQ='y'
 GCC_LTO='y'
 GCC_GOLD='y'
 # Profile Guided Optimiized GCC build
