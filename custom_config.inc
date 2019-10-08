@@ -60,7 +60,7 @@ CUSTOM_CURLRPMVER='7.66.0-1.1'       # custom curl/libcurl version
 PHP_PGO='y'
 PHP_PGO_ALWAYS='y'
 
-#PHPPGO_INDEXPATH='/home/nginx/domains/XX/public/index.php'
+PHPPGO_INDEXPATH='/opt/phpbench/detailed_benchmark.php'
 #PHPPGO_INDEXPATH_TWO='/home/nginx/domains/XX/public/index.php'
 
 PHP_TUNING='y'
