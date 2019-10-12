@@ -22,13 +22,13 @@ GCC_YUMINSTALL='y'
 # SVN GCC 7 or 8 or 9
 GCCSVN_VER='9'
 GCC_SVN='y'
-GCC_VER='9.2.0'
+GCC_VER='9.1.0'
 GCC_PREFIX="/opt/gcc-${GCC_VER}"
 # download from ftp://gcc.gnu.org/pub/gcc/infrastructure/
 # or via wget code for more reliability as
 # ./contrib/download_prerequisites script sees to fail to
 # download some required packages each time it runs
-GCC_DOWNLOADPREREQ='n'
+GCC_DOWNLOADPREREQ='y'
 GCC_LTO='y'
 GCC_GOLD='y'
 # Profile Guided Optimiized GCC build
@@ -53,7 +53,7 @@ GCC_SNAPSHOTSEVEN='http://www.netgull.com/gcc/snapshots/LATEST-7/'
 GCC_SNAPSHOTEIGHT='http://www.netgull.com/gcc/snapshots/LATEST-8/'
 #GCC_SNAPSHOTEIGHT='http://www.netgull.com/gcc/releases/gcc-8.2.0/'
 #GCC_SNAPSHOTNINE='http://www.netgull.com/gcc/snapshots/LATEST-9/'
-GCC_SNAPSHOTNINE='https://gnu.freemirror.org/gnu/gcc/gcc-9.2.0/'
+GCC_SNAPSHOTNINE='https://gnu.freemirror.org/gnu/gcc/gcc-9.1.0/'
 #GCC_SNAPSHOTNINE='http://www.netgull.com/gcc/snapshots/9.0.1-RC-20190426/'
 GCC_COMPILEOPTS='--enable-bootstrap --enable-plugin --with-gcc-major-version-only --enable-shared --disable-nls --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-install-libiberty --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++ --enable-initfini-array --disable-libgcj --enable-gnu-indirect-function --with-tune=generic --build=x86_64-redhat-linux'
 SCRIPT_DIR=$(readlink -f $(dirname ${BASH_SOURCE[0]}))
