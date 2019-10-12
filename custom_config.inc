@@ -51,8 +51,8 @@ DEVTOOLSETSEVEN='n'
 DEVTOOLSETEIGHT='y'
 #DEVTOOLSETNINE='y'
 NGINX_DEVTOOLSETGCC='y'
-#GENERAL_DEVTOOLSETGCC='y'     # Use devtoolset-4 GCC 5.3 whereever possible/coded
-#CRYPTO_DEVTOOLSETGCC='y' 
+GENERAL_DEVTOOLSETGCC='y'     # Use devtoolset-4 GCC 5.3 whereever possible/coded
+CRYPTO_DEVTOOLSETGCC='y' 
  
 CUSTOM_CURLRPM='y'
 CUSTOM_CURLRPMVER='7.66.0-1.1'       # custom curl/libcurl version
