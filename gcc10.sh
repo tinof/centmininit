@@ -32,13 +32,13 @@ GCC_GOLD='y'
 # https://gcc.gnu.org/install/build.html
 GCC_PGO='n'
 BOOTCFLAGS='y'
-BINUTILS_VER='2.32'
+BINUTILS_VER='2.33.1'
 
 # GCC Downloads
-GMP_FILE='gmp-6.1.0.tar.bz2'
-ISL_FILE='isl-0.18.tar.bz2'
-MPC_FILE='mpc-1.0.3.tar.gz'
-MPFR_FILE='mpfr-3.1.4.tar.bz2'
+GMP_FILE='gmp-6.1.2.tar.bz2'
+ISL_FILE='isl-0.21.tar.bz2'
+MPC_FILE='mpc-1.1.0.tar.gz'
+MPFR_FILE='mpfr-4.0.2.tar.bz2'
 
 CLANG_FOUR='n'
 OPT_LEVEL=-O3
