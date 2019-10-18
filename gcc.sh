@@ -1,13 +1,13 @@
 #!/bin/bash
 ################################################
-# GCC 10 install for Centmin Mod on CentOS
+# GCC 8 install for Centmin Mod on CentOS
 # https://gcc.gnu.org/wiki/InstallingGCC
 # https://gcc.gnu.org/wiki/FAQ#configure
 # https://gcc.gnu.org/releases.html
 # https://gist.github.com/centminmod/f825b26676eab0240d3049d2e7d1c688
 # http://wiki.osdev.org/GCC_Cross-Compiler#Binutils
 ################################################
-VER='1.0'
+VER='1.1'
 DT=$(date +"%d%m%y-%H%M%S")
 DIR_TMP='/svr-setup'
 
@@ -19,13 +19,17 @@ RPMSAVE_PATH="$DIR_TMP"
 # or just build RPMs without installing
 GCC_YUMINSTALL='y'
 
-GCCSVN_VER='10'
+# SVN GCC 7 or 8 or 9
+GCCSVN_VER='8'
 GCC_SVN='y'
-GCC_VER='10'
+GCC_VER='9.2.1'
 GCC_PREFIX="/opt/gcc-${GCC_VER}"
-
-GCC_DOWNLOADPREREQ='y'
-GCC_LTO='y'
+# download from ftp://gcc.gnu.org/pub/gcc/infrastructure/
+# or via wget code for more reliability as
+# ./contrib/download_prerequisites script sees to fail to
+# download some required packages each time it runs
+GCC_DOWNLOADPREREQ='n'
+GCC_LTO='n'
 GCC_GOLD='y'
 # Profile Guided Optimiized GCC build
 # using profiledbootstrap
@@ -35,13 +39,13 @@ BOOTCFLAGS='y'
 BINUTILS_VER='2.33.1'
 
 # GCC Downloads
-GMP_FILE='gmp-6.1.2.tar.bz2'
-ISL_FILE='isl-0.21.tar.bz2'
-MPC_FILE='mpc-1.1.0.tar.gz'
-MPFR_FILE='mpfr-4.0.2.tar.bz2'
+GMP_FILE='gmp-6.1.0.tar.bz2'
+ISL_FILE='isl-0.18.tar.bz2'
+MPC_FILE='mpc-1.0.3.tar.gz'
+MPFR_FILE='mpfr-3.1.4.tar.bz2'
 
 CLANG_FOUR='n'
-OPT_LEVEL=-O3
+OPT_LEVEL=-O2
 CCACHE='y'
 CENTMINLOGDIR='/root/centminlogs'
 GCC_SNAPSHOTSEVEN='http://www.netgull.com/gcc/snapshots/LATEST-7/'
@@ -49,8 +53,8 @@ GCC_SNAPSHOTSEVEN='http://www.netgull.com/gcc/snapshots/LATEST-7/'
 GCC_SNAPSHOTEIGHT='http://www.netgull.com/gcc/snapshots/LATEST-8/'
 #GCC_SNAPSHOTEIGHT='http://www.netgull.com/gcc/releases/gcc-8.2.0/'
 #GCC_SNAPSHOTNINE='http://www.netgull.com/gcc/snapshots/LATEST-9/'
-GCC_SNAPSHOTNINE='http://www.netgull.com/gcc/snapshots/LATEST-10/'
-#GCC_SNAPSHOTNINE='http://www.netgull.com/gcc/snapshots/9.0.1-RC-20190426/'
+GCC_SNAPSHOTNINE='https://gnu.freemirror.org/gnu/gcc/gcc-9.2.0/'
+#GCC_SNAPSHOTNINE='http://mirrors.concertpass.com/gcc/releases/gcc-9.2.0/'
 GCC_COMPILEOPTS='--enable-bootstrap --enable-plugin --with-gcc-major-version-only --enable-shared --disable-nls --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-install-libiberty --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++ --enable-initfini-array --disable-libgcj --enable-gnu-indirect-function --with-tune=generic --build=x86_64-redhat-linux'
 SCRIPT_DIR=$(readlink -f $(dirname ${BASH_SOURCE[0]}))
 ################################################
@@ -540,7 +544,7 @@ install_gcc() {
         ../configure --prefix="$GCC_PREFIX" --disable-multilib $GCC_COMPILEOPTS
     elif [[ "$GCC_SVN" = [yY] && "$GCCSVN_VER" -eq '9' ]]; then
         GCC_SYMLINK='/opt/gcc9'
-        GCCFPM_VER='9.1.0'
+        GCCFPM_VER='9.2.1'
         downloadtar_name=$(curl -4s $GCC_SNAPSHOTNINE | grep -o '<a .*href=.*>' | grep -v '.sig' | sed -e 's/<a /\n<a /g' | sed -e 's/<a .*href=['"'"'"]//' -e 's/["'"'"'].*$//' -e '/^$/ d' -e 's|\.\.\/||g' -e 's|\.\/||g'| awk '/tar.xz/ {print $1}')
         downloadtar_dirname=$(echo "$downloadtar_name" | sed -e 's|.tar.xz||')
         rm -rf "${downloadtar_dirname}"
@@ -636,6 +640,12 @@ EOF
 
         ginrootbin_list="c++ cpp g++ gcc gcc-ar gcc-nm gcc-ranlib gcov gcov-dump gcov-tool x86_64-redhat-linux-c++ x86_64-redhat-linux-g++ x86_64-redhat-linux-gcc x86_64-redhat-linux-gcc-${GCCSVN_VER}"
         for gg in ${ginrootbin_list[@]}; do
+          if [[ "$gg" = 'gcc' ]]; then
+            \cp -af "$GCC_RPMINSTALLDIR${GCC_PREFIX}/bin/$gg" "$GCC_RPMINSTALLDIR${GCC_PREFIX}/bin/cc"
+            echo
+            echo "$GCC_RPMINSTALLDIR${GCC_PREFIX}/bin/cc"
+            ls -lah "$GCC_RPMINSTALLDIR${GCC_PREFIX}/bin/cc"
+          fi
           echo
           echo "ls -lah "$GCC_RPMINSTALLDIR${GCC_PREFIX}/bin/$gg""
           ls -lah "$GCC_RPMINSTALLDIR${GCC_PREFIX}/bin/$gg"
