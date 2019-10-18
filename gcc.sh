@@ -1,6 +1,6 @@
 #!/bin/bash
 ################################################
-# GCC 8 install for Centmin Mod on CentOS
+# GCC 9/10 install for Centmin Mod on CentOS
 # https://gcc.gnu.org/wiki/InstallingGCC
 # https://gcc.gnu.org/wiki/FAQ#configure
 # https://gcc.gnu.org/releases.html
@@ -19,8 +19,8 @@ RPMSAVE_PATH="$DIR_TMP"
 # or just build RPMs without installing
 GCC_YUMINSTALL='y'
 
-# SVN GCC 7 or 8 or 9
-GCCSVN_VER='8'
+# SVN GCC 9 or 10
+GCCSVN_VER='9'
 GCC_SVN='y'
 GCC_VER='9.2.1'
 GCC_PREFIX="/opt/gcc-${GCC_VER}"
@@ -39,21 +39,22 @@ BOOTCFLAGS='y'
 BINUTILS_VER='2.33.1'
 
 # GCC Downloads
-GMP_FILE='gmp-6.1.0.tar.bz2'
-ISL_FILE='isl-0.18.tar.bz2'
-MPC_FILE='mpc-1.0.3.tar.gz'
-MPFR_FILE='mpfr-3.1.4.tar.bz2'
+GMP_FILE='gmp-6.1.2.tar.bz2'
+ISL_FILE='isl-0.21.tar.bz2'
+MPC_FILE='mpc-1.1.0.tar.gz'
+MPFR_FILE='mpfr-4.0.2.tar.bz2'
+
 
 CLANG_FOUR='n'
-OPT_LEVEL=-O2
+OPT_LEVEL=-O3
 CCACHE='y'
 CENTMINLOGDIR='/root/centminlogs'
 GCC_SNAPSHOTSEVEN='http://www.netgull.com/gcc/snapshots/LATEST-7/'
 #GCC_SNAPSHOTSEVEN='http://www.netgull.com/gcc/releases/gcc-7.3.0/'
 GCC_SNAPSHOTEIGHT='http://www.netgull.com/gcc/snapshots/LATEST-8/'
 #GCC_SNAPSHOTEIGHT='http://www.netgull.com/gcc/releases/gcc-8.2.0/'
-#GCC_SNAPSHOTNINE='http://www.netgull.com/gcc/snapshots/LATEST-9/'
-GCC_SNAPSHOTNINE='https://gnu.freemirror.org/gnu/gcc/gcc-9.2.0/'
+GCC_SNAPSHOTNINE='http://www.netgull.com/gcc/snapshots/LATEST-9/'
+#GCC_SNAPSHOTNINE='https://gnu.freemirror.org/gnu/gcc/gcc-9.2.0/'
 #GCC_SNAPSHOTNINE='http://mirrors.concertpass.com/gcc/releases/gcc-9.2.0/'
 GCC_COMPILEOPTS='--enable-bootstrap --enable-plugin --with-gcc-major-version-only --enable-shared --disable-nls --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-install-libiberty --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++ --enable-initfini-array --disable-libgcj --enable-gnu-indirect-function --with-tune=generic --build=x86_64-redhat-linux'
 SCRIPT_DIR=$(readlink -f $(dirname ${BASH_SOURCE[0]}))
