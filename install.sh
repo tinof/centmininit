@@ -45,7 +45,7 @@ MPC_FILE='mpc-1.1.0.tar.gz'
 MPFR_FILE='mpfr-4.0.2.tar.bz2'
 
 CLANG_FOUR='n'
-OPT_LEVEL=-O3-march=znver2
+OPT_LEVEL=-O3
 CCACHE='y'
 CENTMINLOGDIR='/root/centminlogs'
 GCC_SNAPSHOTSEVEN='http://www.netgull.com/gcc/snapshots/LATEST-7/'
