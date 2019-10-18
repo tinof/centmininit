@@ -22,7 +22,7 @@ GCC_YUMINSTALL='y'
 # SVN GCC 7 or 8 or 9
 GCCSVN_VER='9'
 GCC_SVN='y'
-GCC_VER='9.2.1'
+GCC_VER='9.2.2'
 GCC_PREFIX="/opt/gcc-${GCC_VER}"
 # download from ftp://gcc.gnu.org/pub/gcc/infrastructure/
 # or via wget code for more reliability as
@@ -39,10 +39,10 @@ BOOTCFLAGS='y'
 BINUTILS_VER='2.33.1'
 
 # GCC Downloads
-GMP_FILE='gmp-6.1.2.tar.bz2'
-ISL_FILE='isl-0.21.tar.bz2'
-MPC_FILE='mpc-1.1.0.tar.gz'
-MPFR_FILE='mpfr-4.0.2.tar.bz2'
+GMP_FILE='gmp-6.1.0.tar.bz2'
+ISL_FILE='isl-0.18.tar.bz2'
+MPC_FILE='mpc-1.0.3.tar.gz'
+MPFR_FILE='mpfr-3.1.4.tar.bz2'
 
 CLANG_FOUR='n'
 OPT_LEVEL=-O3
