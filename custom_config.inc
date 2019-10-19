@@ -1,4 +1,3 @@
-## FOR WHMCS
 #PHPIONCUBE='y'
 
 ENABLEMOTD_CSFMSG='n'         # motd banner csf message alert disaply
@@ -7,19 +6,17 @@ DISABLE_IPVSIX='y'
 
 AUTOTUNE_CLIENTMAXBODY='y'
 
-
 CLOUDFLARE_ZLIB='y'
 
 CLOUDFLARE_ZLIBPHP='y'
 
-
 FPM_WAKEUP_PATCH='y'
 WP_FASTCGI_CACHE='y' 
  
-##For Kernel Linux > 5.1.x
+##For Linux Kernel  > 5.1.x
 NGINX_IOURING_PATCH='y' 
 
-##Upgrading NGINX. Disable if custom configs  
+##Upgrading NGINX. Disable, if custom configs  
 NGINX_ALLOWOVERRIDE='y'  
 
 
