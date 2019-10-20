@@ -34,7 +34,7 @@ GCC_GOLD='y'
 # Profile Guided Optimiized GCC build
 # using profiledbootstrap
 # https://gcc.gnu.org/install/build.html
-GCC_PGO='y'
+GCC_PGO='n'
 BOOTCFLAGS='y'
 BINUTILS_VER='2.33.1'
 
