@@ -6,9 +6,17 @@ DISABLE_IPVSIX='y'
 
 AUTOTUNE_CLIENTMAXBODY='y'
 
-CLOUDFLARE_ZLIB='y'
+CLOUDFLARE_ZLIB='n'
+NGINX_ZLIBNG='y'
 
-CLOUDFLARE_ZLIBPHP='y'
+CLOUDFLARE_ZLIBPHP='n'
+PHP_LIBZIP='y'              # use newer libzip instead of PHP embedded zip
+PHP_ARGON='y'               # alias for PHP_LIBZIP, when PHP_ARGON='y' then PHP_LIBZIP='y'
+LIBZIP_VER='1.5.2'          # required for PHP 7.2 + with libsodium & argon2
+LIBSODIUM_VER='1.0.18'      # https://github.com/jedisct1/libsodium/releases
+LIBSODIUM_NATIVE='y'        # optimise for specific cpu not portable between different cpu modules
+LIBARGON_VER='20190702'     # https://github.com/P-H-C/phc-winner-argon2/releases
+
 
 FPM_WAKEUP_PATCH='y'
 WP_FASTCGI_CACHE='y' 
@@ -40,8 +48,7 @@ LIBRESSL_SWITCH='n'
 CLANG='n'
 DEVTOOLSETSIX='n'
 DEVTOOLSETSEVEN='n'
-DEVTOOLSETEIGHT='n'
-DEVTOOLSETNINE='y'
+DEVTOOLSETEIGHT='y'
 NGINX_DEVTOOLSETGCC='y'
 GENERAL_DEVTOOLSETGCC='y'     # Use devtoolset-4 GCC 5.3 whereever possible/coded
 CRYPTO_DEVTOOLSETGCC='y' 
