@@ -45,19 +45,17 @@ MPC_FILE='mpc-1.0.3.tar.gz'
 MPFR_FILE='mpfr-3.1.4.tar.bz2'
 
 CLANG_FOUR='n'
-OPT_LEVEL=-O2
+OPT_LEVEL=-O3
 CCACHE='y'
 CENTMINLOGDIR='/root/centminlogs'
 GCC_SNAPSHOTSEVEN='http://www.netgull.com/gcc/snapshots/LATEST-7/'
 #GCC_SNAPSHOTSEVEN='http://www.netgull.com/gcc/releases/gcc-7.3.0/'
 GCC_SNAPSHOTEIGHT='http://www.netgull.com/gcc/snapshots/LATEST-8/'
 #GCC_SNAPSHOTEIGHT='http://www.netgull.com/gcc/releases/gcc-8.2.0/'
-#GCC_SNAPSHOTNINE='http://www.netgull.com/gcc/snapshots/LATEST-10/'
 GCC_SNAPSHOTNINE='http://www.netgull.com/gcc/snapshots/LATEST-9/'
-#GCC_SNAPSHOTNINE='http://www.netgull.com/gcc/snapshots/LATEST-10/'
-#GCC_SNAPSHOTNINE='https://gnu.freemirror.org/gnu/gcc/gcc-9.2.0/'
-#GCC_SNAPSHOTNINE='http://mirrors.concertpass.com/gcc/releases/gcc-9.2.0/'
-GCC_COMPILEOPTS='--enable-bootstrap --enable-plugin --with-gcc-major-version-only --enable-shared --disable-nls --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-install-libiberty --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++ --enable-initfini-array --disable-libgcj --enable-gnu-indirect-function --with-tune=generic --build=x86_64-redhat-linux'
+#GCC_SNAPSHOTNINE='https://gnu.freemirror.org/gnu/gcc/gcc-9.1.0/'
+#GCC_SNAPSHOTNINE='http://www.netgull.com/gcc/snapshots/9.0.1-RC-20190426/'
+GCC_COMPILEOPTS='--disable-multilib --enable-bootstrap --enable-plugin --with-gcc-major-version-only --enable-shared --disable-nls --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-install-libiberty --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++ --enable-initfini-array --disable-libgcj --enable-gnu-indirect-function --with-tune=znver2 --build=x86_64-redhat-linux --enable-lto --enable-gold'
 SCRIPT_DIR=$(readlink -f $(dirname ${BASH_SOURCE[0]}))
 ################################################
 # Setup Colours
