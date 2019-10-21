@@ -25,7 +25,7 @@ sed -i "s|CUSTOM4_LOG = .*|CUSTOM4_LOG = \"/var/log/nginx/localhost.error.log\"|
 egrep 'CUSTOM1_LOG|CUSTOM2_LOG|CUSTOM3_LOG|CUSTOM4_LOG' /etc/csf/csf.conf
 wget -O /usr/local/csf/bin/regex.custom.pm https://gist.github.com/centminmod/f5551b92b8aba768c3b4db84c57e756d/raw/regex.custom.pm
 csf -ra
+
 yum update --enablerepo=city-fan.org --disableplugin=priorities
-yum -y install wget; wget https://raw.githubusercontent.com/tinof/centmininit/master/install.sh; chmod +x install.sh; ./install.sh install9
 
 echo "Done!"
