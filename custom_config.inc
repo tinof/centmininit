@@ -6,8 +6,7 @@ DISABLE_IPVSIX='y'
 
 AUTOTUNE_CLIENTMAXBODY='y'
 
-CLOUDFLARE_ZLIB='n'
-NGINX_ZLIBNG='y'
+CLOUDFLARE_ZLIB='y'
 
 CLOUDFLARE_ZLIBPHP='n'
 PHP_LIBZIP='y'              # use newer libzip instead of PHP embedded zip
@@ -50,8 +49,6 @@ DEVTOOLSETSIX='n'
 DEVTOOLSETSEVEN='n'
 DEVTOOLSETEIGHT='y'
 NGINX_DEVTOOLSETGCC='y'
-GENERAL_DEVTOOLSETGCC='y'     # Use devtoolset-4 GCC 5.3 whereever possible/coded
-CRYPTO_DEVTOOLSETGCC='y' 
  
 CUSTOM_CURLRPM='y'
 CUSTOM_CURLRPMVER='7.66.0-1.1'       # custom curl/libcurl version
