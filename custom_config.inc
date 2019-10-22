@@ -21,7 +21,7 @@ FPM_WAKEUP_PATCH='y'
 WP_FASTCGI_CACHE='y' 
  
 ##For Linux Kernel  > 5.1.x
-NGINX_IOURING_PATCH='y' 
+#NGINX_IOURING_PATCH='y' 
 
 ##Upgrading NGINX. Disable, if custom configs  
 NGINX_ALLOWOVERRIDE='y'  
