@@ -29,7 +29,7 @@ GCC_PREFIX="/opt/gcc-${GCC_VER}"
 # ./contrib/download_prerequisites script sees to fail to
 # download some required packages each time it runs
 GCC_DOWNLOADPREREQ='y'
-GCC_LTO='n'
+GCC_LTO='y'
 GCC_GOLD='y'
 # Profile Guided Optimiized GCC build
 # using profiledbootstrap
