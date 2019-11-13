@@ -6,10 +6,21 @@ AUTOTUNE_CLIENTMAXBODY='y'
 
 CLOUDFLARE_ZLIB='y'
 
-CLOUDFLARE_ZLIBPHP='y'
+#CLOUDFLARE_ZLIBPHP='y'
 
 ## FOR PHP 7.4+
 FPM_WAKEUP_PATCH='y'
+
+## EXPERIMENTAL
+LIBSODIUM_VER='1.0.18'      # https://github.com/jedisct1/libsodium/releases
+LIBSODIUM_NATIVE='y'        # optimise for specific cpu not portable between different cpu modules
+LIBARGON_VER='20190702'     # https://github.com/P-H-C/phc-winner-argon2
+
+PHP_LIBZIP='y'              # use newer libzip instead of PHP embedded zip
+AUTODETECPHP_OVERRIDE='y'
+SWITCH_PHPFPM_SYSTEMD='y'
+PHP_LTO='y'
+
 
 WP_FASTCGI_CACHE='y' 
  
@@ -78,3 +89,4 @@ MEMCACHED_INSTALL='n'
 NSD_INSTALL='n'
 MEMCACHED_DISABLED='y' 
 NSD_DISABLED='y'  
+MARCH_TARGETNATIVE_ALWAYS='y'
