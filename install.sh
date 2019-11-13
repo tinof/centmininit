@@ -28,7 +28,7 @@ GCC_PREFIX="/opt/gcc-${GCC_VER}"
 # or via wget code for more reliability as
 # ./contrib/download_prerequisites script sees to fail to
 # download some required packages each time it runs
-GCC_DOWNLOADPREREQ='n'
+GCC_DOWNLOADPREREQ='y'
 GCC_LTO='n'
 GCC_GOLD='y'
 # Profile Guided Optimiized GCC build
