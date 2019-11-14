@@ -29,7 +29,7 @@ GCC_PREFIX="/opt/gcc-${GCC_VER}"
 # ./contrib/download_prerequisites script sees to fail to
 # download some required packages each time it runs
 GCC_DOWNLOADPREREQ='y'
-GCC_LTO='y'
+GCC_LTO='n'
 GCC_GOLD='y'
 # Profile Guided Optimiized GCC build
 # using profiledbootstrap
@@ -39,14 +39,14 @@ BOOTCFLAGS='y'
 BINUTILS_VER='2.33.1'
 
 # GCC Downloads
-GMP_FILE='gmp-6.1.0.tar.bz2'
-ISL_FILE='isl-0.18.tar.bz2'
-MPC_FILE='mpc-1.0.3.tar.gz'
-MPFR_FILE='mpfr-3.1.4.tar.bz2'
+GMP_FILE='gmp-6.1.2.tar.bz2'
+ISL_FILE='isl-0.22.tar.bz2'
+MPC_FILE='mpc-1.1.0.tar.gz'
+MPFR_FILE='mpfr-4.0.2.tar.bz2'
 
 CLANG_FOUR='n'
 OPT_LEVEL=-O2
-CCACHE='y'
+CCACHE='n'
 CENTMINLOGDIR='/root/centminlogs'
 GCC_SNAPSHOTSEVEN='http://www.netgull.com/gcc/snapshots/LATEST-7/'
 #GCC_SNAPSHOTSEVEN='http://www.netgull.com/gcc/releases/gcc-7.3.0/'
