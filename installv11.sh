@@ -34,7 +34,7 @@ GCC_GOLD='y'
 # Profile Guided Optimiized GCC build
 # using profiledbootstrap
 # https://gcc.gnu.org/install/build.html
-GCC_PGO='n'
+GCC_PGO='y'
 BOOTCFLAGS='y'
 BINUTILS_VER='2.33.1'
 
@@ -45,7 +45,7 @@ MPC_FILE='mpc-1.0.3.tar.gz'
 MPFR_FILE='mpfr-3.1.4.tar.bz2'
 
 CLANG_FOUR='n'
-OPT_LEVEL=-O2
+OPT_LEVEL=-O3
 CCACHE='y'
 CENTMINLOGDIR='/root/centminlogs'
 GCC_SNAPSHOTSEVEN='http://www.netgull.com/gcc/snapshots/LATEST-7/'
