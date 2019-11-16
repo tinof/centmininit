@@ -1,3 +1,7 @@
+CMGIT='https://github.com/centminmod/centminmod.git'
+AUTO_GITUPDATE='y'
+#EMAIL='tino.fotiou@gmail.com'
+
 ENABLEMOTD_CSFMSG='n'         # motd banner csf message alert disaply
 ENABLEMOTD_LINKSMSG='n'       # motd centminmod.com links bookmark alert display
 DISABLE_IPVSIX='y'
