@@ -11,11 +11,9 @@ CLOUDFLARE_ZLIBPHP='y'
 ## FOR PHP 7.4+
 #FPM_WAKEUP_PATCH='y'
 
-
 AUTODETECPHP_OVERRIDE='y'
 SWITCH_PHPFPM_SYSTEMD='y'
 PHP_LTO='y'
-
 
 WP_FASTCGI_CACHE='y' 
  
@@ -41,7 +39,7 @@ LETSENCRYPT_DETECT='y'
 DUALCERTS='y'
 NGINX_HPACK='y'
 
-#GCC_FALIGN_FUNCTION='y'
+GCC_FALIGN_FUNCTION='y'
 
 LIBRESSL_SWITCH='n'
 CLANG='n'
@@ -59,7 +57,7 @@ CUSTOM_CURLRPMVER='7.67.0'       # custom curl/libcurl version
 PHP_PGO='y'
 #PHP_PGO_ALWAYS='y'
 
-#PHPPGO_INDEXPATH='/opt/phpbench/detailed_benchmark.php'
+#PHPPGO_INDEXPATH='/home/nginx/domains/XX/public/index.php'
 #PHPPGO_INDEXPATH_TWO='/home/nginx/domains/XX/public/index.php'
 
 PHP_TUNING='y'
