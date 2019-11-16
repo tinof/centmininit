@@ -27,6 +27,8 @@ NGINX_IOURING_PATCH='y'
 ##Upgrading NGINX. Disable, if custom configs  
 NGINX_ALLOWOVERRIDE='y'  
 
+#NGINX_FATLTO_OBJECTS='n'        # enable -ffat-lto-objects flag for nginx builds - much slower compile times
+#NGINX_NOFATLTO_OBJECTS='n'      # enable -fno-fat-lto-objects flag for nginx builds - much slower compile times
 
 NGINX_MODSECURITY='n'
 NGINX_DYNAMICTLS='y'  
@@ -57,6 +59,8 @@ CRYPTO_DEVTOOLSETGCC='y'
  
 CUSTOM_CURLRPM='y'
 CUSTOM_CURLRPMVER='7.67.0'       # custom curl/libcurl version
+
+PHP_MYSQLSOCKPATH='/var/lib/mysql'
 
 PHP_PGO='y'
 #PHP_PGO_ALWAYS='y'
