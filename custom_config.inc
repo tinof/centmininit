@@ -1,6 +1,6 @@
 CMGIT='https://github.com/centminmod/centminmod.git'
 AUTO_GITUPDATE='y'
-#EMAIL='tino.fotiou@gmail.com'
+EMAIL='tino.fotiou@gmail.com'
 
 ENABLEMOTD_CSFMSG='n'         # motd banner csf message alert disaply
 ENABLEMOTD_LINKSMSG='n'       # motd centminmod.com links bookmark alert display
@@ -65,7 +65,7 @@ PHP_MYSQLSOCKPATH='/var/lib/mysql'
 PHP_PGO='y'
 #PHP_PGO_ALWAYS='y'
 
-#PHPPGO_INDEXPATH='/home/nginx/domains/XX/public/index.php'
+PHPPGO_INDEXPATH='/home/nginx/domains/nefeli.fi/public/index.php'
 #PHPPGO_INDEXPATH_TWO='/home/nginx/domains/XX/public/index.php'
 
 PHP_TUNING='y'
