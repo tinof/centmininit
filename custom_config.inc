@@ -65,7 +65,7 @@ PHP_MYSQLSOCKPATH='/var/lib/mysql'
 PHP_PGO='y'
 #PHP_PGO_ALWAYS='y'
 
-PHPPGO_INDEXPATH='/home/nginx/domains/nefeli.fi/public/index.php'
+#PHPPGO_INDEXPATH='/home/nginx/domains/XX/public/index.php'
 #PHPPGO_INDEXPATH_TWO='/home/nginx/domains/XX/public/index.php'
 
 PHP_TUNING='y'
