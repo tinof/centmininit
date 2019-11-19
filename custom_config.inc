@@ -19,7 +19,6 @@ AUTODETECPHP_OVERRIDE='y'
 SWITCH_PHPFPM_SYSTEMD='y'
 PHP_LTO='y'
 
-WP_FASTCGI_CACHE='y' 
  
 ##For Linux Kernel  > 5.1.x
 NGINX_IOURING_PATCH='y' 
@@ -59,8 +58,6 @@ CRYPTO_DEVTOOLSETGCC='y'
  
 CUSTOM_CURLRPM='y'
 CUSTOM_CURLRPMVER='7.67.0'       # custom curl/libcurl version
-
-PHP_MYSQLSOCKPATH='/var/lib/mysql'
 
 PHP_PGO='y'
 #PHP_PGO_ALWAYS='y'
