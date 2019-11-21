@@ -15,7 +15,7 @@ CLOUDFLARE_ZLIBPHP='y'
 ## FOR PHP 7.4+
 #FPM_WAKEUP_PATCH='y'
 
-AUTODETECPHP_OVERRIDE='y'
+#AUTODETECPHP_OVERRIDE='y'
 SWITCH_PHPFPM_SYSTEMD='y'
 PHP_LTO='y'
 
@@ -29,7 +29,7 @@ NGINX_ALLOWOVERRIDE='y'
 #NGINX_FATLTO_OBJECTS='n'        # enable -ffat-lto-objects flag for nginx builds - much slower compile times
 #NGINX_NOFATLTO_OBJECTS='n'      # enable -fno-fat-lto-objects flag for nginx builds - much slower compile times
 
-NGINX_MODSECURITY='n'
+#NGINX_MODSECURITY='n'
 NGINX_DYNAMICTLS='y'  
 NGINX_SSLCACHE_ALLOWOVERRIDE='y'  
 NGINX_ZERODT='y'  
