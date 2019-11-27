@@ -18,7 +18,7 @@ CLOUDFLARE_ZLIBPHP='y'
 
 #AUTODETECPHP_OVERRIDE='y'
 SWITCH_PHPFPM_SYSTEMD='y'
-PHP_LTO='y'
+#PHP_LTO='y'
 
  
 ##For Linux Kernel  > 5.1.x
@@ -61,7 +61,7 @@ CUSTOM_CURLRPM='y'
 CUSTOM_CURLRPMVER='7.67.0'       # custom curl/libcurl version
 
 PHP_PGO='y'
-#PHP_PGO_ALWAYS='y'
+PHP_PGO_ALWAYS='y'
 
 #PHPPGO_INDEXPATH='/home/nginx/domains/XX/public/index.php'
 #PHPPGO_INDEXPATH_TWO='/home/nginx/domains/XX/public/index.php'
