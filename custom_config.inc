@@ -4,6 +4,8 @@ EMAIL='tino.fotiou@gmail.com'
 
 VHOSTCTRL_CLOUDFLAREINC='y'
 
+WP_FASTCGI_CACHE='y'
+
 ENABLEMOTD_CSFMSG='n'         # motd banner csf message alert disaply
 ENABLEMOTD_LINKSMSG='n'       # motd centminmod.com links bookmark alert display
 DISABLE_IPVSIX='y'
@@ -18,7 +20,7 @@ CLOUDFLARE_ZLIBPHP='y'
 
 #AUTODETECPHP_OVERRIDE='y'
 SWITCH_PHPFPM_SYSTEMD='y'
-#PHP_LTO='y'
+PHP_LTO='y'
 
  
 ##For Linux Kernel  > 5.1.x
