@@ -1,6 +1,5 @@
 CMGIT='https://github.com/centminmod/centminmod.git'
 AUTO_GITUPDATE='y'
-EMAIL='tino.fotiou@gmail.com'
 
 VHOSTCTRL_CLOUDFLAREINC='y'
 
@@ -30,13 +29,12 @@ NGINX_ALLOWOVERRIDE='y'
 #NGINX_NOFATLTO_OBJECTS='n'      # enable -fno-fat-lto-objects flag for nginx builds - much slower compile times
 
 NGINX_DYNAMICTLS='y'  
-NGINX_SSLCACHE_ALLOWOVERRIDE='y'  
-NGINX_ZERODT='y'  
+NGINX_SSLCACHE_ALLOWOVERRIDE='y'    
 NGXDYNAMIC_BROTLI='y'
 NGINX_LIBBROTLI='y'
 AUTOHARDTUNE_NGINXBACKLOG='y'
 
-MARIADB_INSTALLTENTHREE='y'
+MARIADB_INSTALLTENFOUR='y'
 SET_DEFAULT_MYSQLCHARSET='utf8mb4'
   
 LETSENCRYPT_DETECT='y'
@@ -59,7 +57,6 @@ CUSTOM_CURLRPM='y'
 CUSTOM_CURLRPMVER='7.67.0'       # custom curl/libcurl version
 
 PHP_PGO='y'
-PHP_PGO_ALWAYS='y'
 
 #PHPPGO_INDEXPATH='/home/nginx/domains/XX/public/index.php'
 #PHPPGO_INDEXPATH_TWO='/home/nginx/domains/XX/public/index.php'
