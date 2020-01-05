@@ -18,6 +18,11 @@ CLOUDFLARE_ZLIBPHP='y'
 #FPM_WAKEUP_PATCH='y'
 
 #AUTODETECPHP_OVERRIDE='y'
+
+# Maintenance Mode (will run maintenance mode during these upgrades)
+NGINX_UPDATEMAINTENANCE='y'
+PHP_UPDATEMAINTENANCE='y'
+MARIADB_UPDATEMAINTENANCE='y'
  
 ##For Linux Kernel  > 5.1.x
 NGINX_IOURING_PATCH='y' 
