@@ -22,7 +22,7 @@ GCC_YUMINSTALL='y'
 # SVN GCC 7 or 8 or 9
 GCCSVN_VER='9'
 GCC_SVN='y'
-GCC_VER='9.2.0'
+GCC_VER='9.2.1'
 GCC_PREFIX="/opt/gcc-${GCC_VER}"
 # download from ftp://gcc.gnu.org/pub/gcc/infrastructure/
 # or via wget code for more reliability as
@@ -34,7 +34,7 @@ GCC_GOLD='y'
 # Profile Guided Optimiized GCC build
 # using profiledbootstrap
 # https://gcc.gnu.org/install/build.html
-GCC_PGO='y'
+GCC_PGO='n'
 BOOTCFLAGS='y'
 BINUTILS_VER='2.33.1'
 
