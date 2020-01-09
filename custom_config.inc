@@ -59,7 +59,7 @@ GENERAL_DEVTOOLSETGCC='y'
 CRYPTO_DEVTOOLSETGCC='y'
  
 CUSTOM_CURLRPM='y'
-CUSTOM_CURLRPMVER='7.67.0'       # custom curl/libcurl version
+CUSTOM_CURLRPMVER='7.68.0'       # custom curl/libcurl version
 
 PHP_PGO='y'
 
