@@ -1,6 +1,9 @@
 CMGIT='https://github.com/centminmod/centminmod.git'
 AUTO_GITUPDATE='y'
 
+NGINX_MODSECURITY='y'
+NGINX_MODSECURITY_MAXMIND='y'
+
 VHOSTCTRL_CLOUDFLAREINC='y'
 
 WP_FASTCGI_CACHE='y'
