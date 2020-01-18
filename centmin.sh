@@ -4,8 +4,7 @@
 mkdir -p /etc/centminmod
 yum -y install nano
 wget https://raw.githubusercontent.com/tinof/centmininit/master/custom_config.inc -O /etc/centminmod/custom_config.inc
-wget https://raw.githubusercontent.com/tinof/centmininit/master/email.ini -O /etc/centminmod/email-primary.ini
-wget https://raw.githubusercontent.com/tinof/centmininit/master/email.ini -O /etc/centminmod/email-secondary.ini
+
 
 # install centmin mod latest beta with php-fpm 7.3 default
 yum -y update; curl -O https://centminmod.com/betainstaller73.sh && chmod 0700 betainstaller73.sh && bash betainstaller73.sh
@@ -28,5 +27,8 @@ wget -O /usr/local/csf/bin/regex.custom.pm https://gist.github.com/centminmod/f5
 csf -ra
 
 yum update --enablerepo=city-fan.org --disableplugin=priorities
+
+wget https://raw.githubusercontent.com/tinof/centmininit/master/email.ini -O /etc/centminmod/email-primary.ini
+wget https://raw.githubusercontent.com/tinof/centmininit/master/email.ini -O /etc/centminmod/email-secondary.ini
 
 echo "Done!"
