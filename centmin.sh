@@ -28,6 +28,11 @@ csf -ra
 
 yum update --enablerepo=city-fan.org --disableplugin=priorities
 
+# MALDET 
+wget https://raw.githubusercontent.com/tinof/centmininit/master/maldet.sh -O /usr/local/src/centminmod/addons/maldet.sh
+/usr/local/src/centminmod/addons/maldet.sh
+
+# MAIL
 wget https://raw.githubusercontent.com/tinof/centmininit/master/email.ini -O /etc/centminmod/email-primary.ini
 wget https://raw.githubusercontent.com/tinof/centmininit/master/email.ini -O /etc/centminmod/email-secondary.ini
 
