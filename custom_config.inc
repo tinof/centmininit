@@ -6,8 +6,6 @@ NGINX_MODSECURITY_MAXMIND='y'
 
 VHOSTCTRL_CLOUDFLAREINC='y'
 
-WP_FASTCGI_CACHE='y'
-
 ENABLEMOTD_CSFMSG='n'         # motd banner csf message alert disaply
 ENABLEMOTD_LINKSMSG='n'       # motd centminmod.com links bookmark alert display
 DISABLE_IPVSIX='y'
@@ -76,14 +74,12 @@ PHP_LZFOUR='y'
 PHP_LZF='y'
 PHP_ZSTD='y'
   
-PHPREDIS='n' 
 PHP_MEMCACHE='n'
 PHP_MEMCACHED='n'
 
 ZSTD_LOGROTATE_NGINX='y'
 ZSTD_LOGROTATE_PHPFPM='y'
 
-NGINX_HTTPREDIS='n' 
 PHP_MEMCACHE='n'
 PHP_MEMCACHED='n'
   
