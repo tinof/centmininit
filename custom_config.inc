@@ -5,15 +5,13 @@ NGINX_MODSECURITY='y'
 NGINX_MODSECURITY_MAXMIND='y'
 
 VHOSTCTRL_CLOUDFLAREINC='y'
+CLOUDFLARE_ZLIB='y'
 
 ENABLEMOTD_CSFMSG='n'         # motd banner csf message alert disaply
 ENABLEMOTD_LINKSMSG='n'       # motd centminmod.com links bookmark alert display
 DISABLE_IPVSIX='y'
 
 AUTOTUNE_CLIENTMAXBODY='y'
-
-CLOUDFLARE_ZLIB='y'
-CLOUDFLARE_ZLIBPHP='y'
 
 ## FOR PHP 7.4+
 #FPM_WAKEUP_PATCH='y'
