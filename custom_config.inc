@@ -1,6 +1,8 @@
 CMGIT='https://github.com/centminmod/centminmod.git'
 AUTO_GITUPDATE='y'
 
+WPPLUGINS_ALL='n' 
+
 NGINX_MODSECURITY='y'
 NGINX_MODSECURITY_MAXMIND='y'
 
