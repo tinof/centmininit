@@ -106,13 +106,7 @@ if [[ "$CHECKMYSQL_PING" -ne '0' ]]; then
   exit
 fi
 echo
-read -ep "Do you want to continue with Nginx vhost site creation ? [y/n] " dovhost_continue
-echo
 
-if [[ "$dovhost_continue" != [yY] ]]; then
-  echo "aborting Wordpress + Nginx vhost setup..."
-  exit
-fi
 }
 
 sslvhost() {
@@ -402,34 +396,11 @@ while [[ "$TESTVHOST" ]]; do
 done
 
 
-if [[ "$NGINX_VHOSTSSL" = [yY] ]]; then
-  echo
-  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " vhostssl
-  if [[ -f "${SCRIPT_DIR}/addons/acmetool.sh" && "$LETSENCRYPT_DETECT" = [yY] ]]; then
-    read -ep "Get Letsencrypt SSL certificate Nginx vhost? [y/n]: " vhostssl_le
-    if [[ "$vhostssl_le" = [yY] ]]; then
-      echo
-      echo "You have 4 options: "
-      echo "1. issue staging test cert with HTTP + HTTPS (untrusted)"
-      echo "2. issue staging test cert with HTTPS default (untrusted)"
-      echo "3. issue live cert with HTTP + HTTPS (trusted)"
-      echo "4. issue live cert with HTTPS default (trusted)"
-      read -ep "Enter option number 1-4: " vhostssl_opt
-      if [[ "$vhostssl_opt" = '1' ]]; then
-        vhostssl='le'
-      elif [[ "$vhostssl_opt" = '2' ]]; then
-        vhostssl='led'
-        wpcli_ssldefault=1
-      elif [[ "$vhostssl_opt" = '3' ]]; then
-        vhostssl='lelive'
-      elif [[ "$vhostssl_opt" = '4' ]]; then
         vhostssl='lelived'
         wpcli_ssldefault=1
-      else
-        vhostssl=invalidopt
-      fi
+      
       echo
-      if [[ "$vhostssl_opt" -eq '2' || "$vhostssl_opt" -eq '4' ]]; then
+       [[ "$vhostssl_opt" -eq '2' || "$vhostssl_opt" -eq '4' ]]; then
         echo "If using Cloudflare in front of site, disable CF option for"
         echo "Always Use HTTPS in CF Dashboard Crypto Tab as Nginx will do"
         echo "the non-https to https redirect on this end and not require"
@@ -439,68 +410,14 @@ if [[ "$NGINX_VHOSTSSL" = [yY] ]]; then
         echo "Also change Cloudflare SSL from Flexible to Full SSL mode"
         echo
         sleep 1
-      fi
-    fi # vhostssl_le
-  fi
-fi
+   
 
-if [[ "$vhostssl" = 'invalidopt' ]]; then
-  echo
-  echo "error: you entered invalid option = $vhostssl_opt"
-  echo "aborting run..."
-  exit 1
-fi
 
-echo "Theme Setup: "
-read -ep "Install CyberChimps Responsive Theme (cyberchimps.com/responsive-theme/) [y/n]: " -i n responsivetheme
 
-echo
-echo "Wordpress Setup: "
-echo
-echo "Not a fan of Gutenberg Editor ? You can switch to Classic Editor"
-echo "If you run into Gutenberg Editor issues, you can later switch to"
-echo "the Classic Editor https://wordpress.org/plugins/classic-editor/"
-read -ep "Install Classic Editor Wordpress Plugin ? [y/n]: " -i y wpclassic_editor
 
-echo
-echo "Autoptimize WP Plugin is installed by default. Do you want to install"
-echo "companion Autoptimize Gzip Plugin to precompresses js/css optimized files"
-echo "details at https://community.centminmod.com/threads/15314/"
-read -ep "Install Autoptimize Gzip Companion Wordpress Plugin ? [y/n]: " -i y wpautoptimize_gzip
 
-if [[ "$wpautoptimize_gzip" = [yY] ]]; then
-  WP_AUTOPTIMIZE_GZIP='y'
-fi
 
-echo
-echo "Google Native LazyLoad Plugin https://wordpress.org/plugins/native-lazyload/"
-read -ep "Install Google Native LazyLoad Plugin ? [y/n]: " -i y wp_google_lazyload
 
-echo
-read -ep "Set custom WP Admin Display Name ? [y/n]: " setdisplayname
-if [[ "$setdisplayname" = [yY] ]]; then
-  read -ep "Enter Custom WP Admin Display Name: " displayname
-  WPADMIN_DISPLAYNAME=$displayname
-fi
-read -ep "Install Wordpress in subdirectory /blog ? [y/n]: " wpsubdirinstall
-
-if [[ "$wpsubdirinstall" = [yY] ]]; then
-  SUBDIR_INSTALL=y
-  read -ep "Enter subdirectory name i.e. /blog enter = blog ? : " wpsubdir_value
-  WPSUBDIR="/$wpsubdir_value"
-  SUBDIR_INCLUDE="include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsecure_${vhostname}.conf;"
-  NONSUBDIR_INCLUDE=""
-elif [[ "$wpsubdirinstall" != [yY] ]]; then
-  SUBDIR_INSTALL=n
-  WPSUBDIR=""
-  SUBDIR_INCLUDE=""
-  NONSUBDIR_INCLUDE="include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsecure_${vhostname}.conf;"
-fi
-
-read -ep "Disable Auto Generated WP Admin Username / Password ? [y/n]: " disableautogen
-read -ep "Disable wp-login.php password protection ? (less security) [y/n]: " disablepwdprotect
-
-if [[ "$disableautogen" = [yY] ]]; then
   if [ ! -f /usr/sbin/cracklib-check ]; then
     yum -y -q install cracklib
   fi
@@ -525,7 +442,7 @@ if [[ "$disableautogen" = [yY] ]]; then
     CHECKWPADMINPASSWD="$(cracklib-check <<<"$WPADMINPASS")"
     okay="$(awk -F': ' '{ print $2}' <<<"$CHECKWPADMINPASSWD")"
   done
-fi
+
 
 read -ep "Enter email address for Admin User for Wordpress Installation: " WPADMINEMAIL
 
@@ -879,9 +796,9 @@ location ~ [^/]\.php(/|\$) {
 # which don't pass on a content length header
 # slightly faster page response time at the
 # expense of throughput / scalability
-#sendfile on;
-#tcp_nopush off;
-#keepalive_requests 0;
+sendfile on;
+tcp_nopush off;
+keepalive_requests 0;
 
 fastcgi_connect_timeout 60s;
 fastcgi_send_timeout 180s;
@@ -982,9 +899,9 @@ location ~ [^/]\.php(/|\$) {
 # which don't pass on a content length header
 # slightly faster page response time at the
 # expense of throughput / scalability
-#sendfile on;
-#tcp_nopush off;
-#keepalive_requests 0;
+sendfile on;
+tcp_nopush off;
+keepalive_requests 0;
 
 fastcgi_connect_timeout 60s;
 fastcgi_send_timeout 180s;
@@ -2360,19 +2277,6 @@ rm -rf readme.html
 
 # installed + activated by default
 
-# install google native lazy load plugin
-if [[ "$wp_google_lazyload" = [yY] ]]; then
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install native-lazyload --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-fi
-
-# install classic editor plugin instead of gutenberg
-if [[ "$wpclassic_editor" = [yY] ]]; then
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install classic-editor --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-fi
 
 # wp super cache
 if [[ "$wpscache" = [yY] ]]; then
@@ -2401,50 +2305,7 @@ define('WP_CACHE', true);\
 " wp-config.php
   fi
   cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install autoptimize --activate --allow-root
-  # echo "configure autoptimize"
-  # \wp option update autoptimize_cache_clean 0 --allow-root
-  # \wp option update autoptimize_cdn_url "" --allow-root
-  # \wp option update autoptimize_css on --allow-root
-  # \wp option update autoptimize_css_aggregate on --allow-root
-  # \wp option update autoptimize_css_datauris "" --allow-root
-  # \wp option update autoptimize_css_defer "" --allow-root
-  # \wp option update autoptimize_css_defer_inline "" --allow-root
-  # \wp option update autoptimize_css_exclude "wp-content/cache/, wp-content/uploads/, admin-bar.min.css, dashicons.min.css" --allow-root
-  # \wp option update autoptimize_css_include_inline  on --allow-root
-  # \wp option update autoptimize_css_inline "" --allow-root
-  # \wp option update autoptimize_css_justhead "" --allow-root
-  # \wp option update autoptimize_html on --allow-root
-  # \wp option update autoptimize_html_keepcomments on --allow-root
-  # \wp option update autoptimize_imgopt_launched     on --allow-root
-  # \wp option update autoptimize_js on --allow-root
-  # \wp option update autoptimize_js_aggregate on --allow-root
-  # \wp option update autoptimize_js_exclude  "seal.js, js/jquery/jquery.js" --allow-root
-  # \wp option update autoptimize_js_forcehead "" --allow-root
-  # \wp option update autoptimize_js_include_inline "" --allow-root
-  # \wp option update autoptimize_js_justhead "" --allow-root
-  # \wp option update autoptimize_js_trycatch "" --allow-root
-  # \wp option update autoptimize_optimize_checkout "" --allow-root
-  # \wp option update autoptimize_optimize_logged ""  --allow-root
-  # # \wp option update autoptimize_optimize_logged on --allow-root
-  # \wp option update autoptimize_show_adv 1 --allow-root
-  \wp option list --search=autoptimize_* --allow-root
-  if [[ "$WP_AUTOPTIMIZE_GZIP" = [yY] ]]; then
-    # https://community.centminmod.com/threads/15314/
-    # https://github.com/centminmod/autoptimize-gzip
-    echo
-    echo "configure autoptimize-gzip https://community.centminmod.com/threads/15314/"
-    mkdir -p "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip"
-    wget -4 -cnv -O "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip/autoptimize-gzip.php" https://github.com/centminmod/autoptimize-gzip/raw/master/autoptimize-gzip.php
-    wget -4 -cnv -O "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip/index.html" https://github.com/centminmod/autoptimize-gzip/raw/master/index.html
-    wget -4 -cnv -O "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip/readme.md" https://github.com/centminmod/autoptimize-gzip/blob/master/readme.md
-    wget -4 -cnv -O "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip/LICENSE" https://github.com/centminmod/autoptimize-gzip/raw/master/LICENSE
-    chown -R nginx:nginx "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip"
-    \wp plugin activate autoptimize-gzip --allow-root
-    \wp plugin status autoptimize-gzip --allow-root
-  fi
-  cecho "------------------------------------------------------------" $boldgreen
-fi
+  
 
 # redis nginx cache
 if [[ "$wpscache" = 'redis' ]]; then
@@ -2473,71 +2334,7 @@ if [[ "$wpscache" = 'redis' ]]; then
   fi
 fi
 
-cecho "------------------------------------------------------------" $boldgreen
-\wp plugin install sucuri-scanner --activate --allow-root
-cecho "------------------------------------------------------------" $boldgreen
-\wp plugin install disable-xml-rpc --activate --allow-root
-cecho "------------------------------------------------------------" $boldgreen
-\wp plugin install cdn-enabler --activate --allow-root
-cecho "------------------------------------------------------------" $boldgreen
 
-if [[ "$WPPLUGINS_ALL" = [yY] ]]; then
-  \wp plugin install rocket-lazy-load --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install wp-security-scan --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install limit-login-attempts --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install wp-updates-notifier --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install no-longer-in-directory --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  # \wp plugin install google-sitemap-generator --activate --allow-root
-  # cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install wp-optimize --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  # \wp plugin install wp-smushit --activate --allow-root
-  # cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install tpc-memory-usage --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install gtmetrix-for-wordpress --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install p3-profiler --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install wordpress-seo --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install updraftplus --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install google-analytics-for-wordpress --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install heartbeat-control --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  
-  # installed but disabled by default
-  # cecho "------------------------------------------------------------" $boldgreen
-  # \wp plugin install nginx-helper --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install query-monitor --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install go-newrelic --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install db-cache-reloaded-fix --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install google-authenticator --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install addthis-smart-layers --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install search-regex --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install disable-emojis --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install wp-user-avatar --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install lazy-load-for-videos --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  #\wp plugin install disable-xml-rpc-pingback --allow-root
-  #cecho "------------------------------------------------------------" $boldgreen
-fi # WPPLUGINS_ALL=y
 
 # remove hello plugin
 \wp plugin uninstall hello --allow-root
@@ -2571,19 +2368,6 @@ fi
 
 chown -R nginx:nginx /home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/
 
-# sucuri-scanner change SUCURI_DATA_STORAGE path above web root
-# /home/nginx/domains/${vhostname}/sucuri_data_storage
-if [ -d "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/uploads/sucuri" ]; then
-  sucuri_datapath=$(echo "/home/nginx/domains/${vhostname}/sucuri_data_storage" | sed -e 's|/|\\\/|g')
-  rm -rf "/home/nginx/domains/${vhostname}/sucuri_data_storage"
-  mkdir -p "/home/nginx/domains/${vhostname}/sucuri_data_storage"
-  chown nginx:nginx "/home/nginx/domains/${vhostname}/sucuri_data_storage"
-  sed -i "s|\"}|\",\"sucuriscan_datastore_path\":\"$sucuri_datapath\"}|" "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/uploads/sucuri/sucuri-settings.php"
-  sed -i 's|/|\\/|g' "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/uploads/sucuri/sucuri-settings.php"
-  ls -lah "/home/nginx/domains/${vhostname}/sucuri_data_storage"
-  \cp -Rpf /home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/uploads/sucuri/* "/home/nginx/domains/${vhostname}/sucuri_data_storage"
-  cat "/home/nginx/domains/${vhostname}/sucuri_data_storage/sucuri-settings.php"
-fi
 
 # write permissions for log
 if [ -f wp-content/plugins/tpc-memory-usage/logs/tpcmem.log ]; then
