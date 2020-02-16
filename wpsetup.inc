@@ -105,7 +105,6 @@ if [[ "$CHECKMYSQL_PING" -ne '0' ]]; then
   echo "aborting centmin.sh menu option 22 run..."
   exit
 fi
-echo
 
 }
 
@@ -396,10 +395,34 @@ while [[ "$TESTVHOST" ]]; do
 done
 
 
+if [[ "$NGINX_VHOSTSSL" = [yY] ]]; then
+  echo
+  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " vhostssl
+  if [[ -f "${SCRIPT_DIR}/addons/acmetool.sh" && "$LETSENCRYPT_DETECT" = [yY] ]]; then
+    read -ep "Get Letsencrypt SSL certificate Nginx vhost? [y/n]: " vhostssl_le
+    if [[ "$vhostssl_le" = [yY] ]]; then
+      echo
+      echo "You have 4 options: "
+      echo "1. issue staging test cert with HTTP + HTTPS (untrusted)"
+      echo "2. issue staging test cert with HTTPS default (untrusted)"
+      echo "3. issue live cert with HTTP + HTTPS (trusted)"
+      echo "4. issue live cert with HTTPS default (trusted)"
+      read -ep "Enter option number 1-4: " vhostssl_opt
+      if [[ "$vhostssl_opt" = '1' ]]; then
+        vhostssl='le'
+      elif [[ "$vhostssl_opt" = '2' ]]; then
+        vhostssl='led'
+        wpcli_ssldefault=1
+      elif [[ "$vhostssl_opt" = '3' ]]; then
+        vhostssl='lelive'
+      elif [[ "$vhostssl_opt" = '4' ]]; then
         vhostssl='lelived'
         wpcli_ssldefault=1
-      
+      else
+        vhostssl=invalidopt
+      fi
       echo
+      if [[ "$vhostssl_opt" -eq '2' || "$vhostssl_opt" -eq '4' ]]; then
         echo "If using Cloudflare in front of site, disable CF option for"
         echo "Always Use HTTPS in CF Dashboard Crypto Tab as Nginx will do"
         echo "the non-https to https redirect on this end and not require"
@@ -409,14 +432,27 @@ done
         echo "Also change Cloudflare SSL from Flexible to Full SSL mode"
         echo
         sleep 1
-   
+      fi
+    fi # vhostssl_le
+  fi
+fi
+
+if [[ "$vhostssl" = 'invalidopt' ]]; then
+  echo
+  echo "error: you entered invalid option = $vhostssl_opt"
+  echo "aborting run..."
+  exit 1
+fi
 
 
 
 
 
 
+read -ep "Disable Auto Generated WP Admin Username / Password ? [y/n]: " disableautogen
+read -ep "Disable wp-login.php password protection ? (less security) [y/n]: " disablepwdprotect
 
+if [[ "$disableautogen" = [yY] ]]; then
   if [ ! -f /usr/sbin/cracklib-check ]; then
     yum -y -q install cracklib
   fi
@@ -441,7 +477,7 @@ done
     CHECKWPADMINPASSWD="$(cracklib-check <<<"$WPADMINPASS")"
     okay="$(awk -F': ' '{ print $2}' <<<"$CHECKWPADMINPASSWD")"
   done
-
+fi
 
 read -ep "Enter email address for Admin User for Wordpress Installation: " WPADMINEMAIL
 
@@ -2259,11 +2295,6 @@ elif [ -f /root/.wp-cli/commands/super-cache/cli.php ]; then
   cd /home/nginx/domains/${vhostname}/public${WPSUBDIR}
 fi
 
-if [[ "$responsivetheme" = [yY] ]]; then
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp theme install responsive --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-fi
  
 chown nginx:nginx /home/nginx/domains/${vhostname}/public
 chown -R nginx:nginx /home/nginx/domains/${vhostname}/public
@@ -2304,8 +2335,7 @@ define('WP_CACHE', true);\
 " wp-config.php
   fi
   cecho "------------------------------------------------------------" $boldgreen
-  
-
+ 
 # redis nginx cache
 if [[ "$wpscache" = 'redis' ]]; then
   cecho "------------------------------------------------------------" $boldgreen
@@ -2315,24 +2345,8 @@ if [[ "$wpscache" = 'redis' ]]; then
   chmod 0660 "/home/nginx/domains/${vhostname}/public/wp-content/uploads/nginx-helper/nginx.log"
   chown nginx:nginx "/home/nginx/domains/${vhostname}/public/wp-content/uploads/nginx-helper/nginx.log"
   cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install autoptimize --activate --allow-root
-  \wp option list --search=autoptimize_* --allow-root
-  if [[ "$WP_AUTOPTIMIZE_GZIP" = [yY] ]]; then
-    # https://community.centminmod.com/threads/15314/
-    # https://github.com/centminmod/autoptimize-gzip
-    echo
-    echo "configure autoptimize-gzip https://community.centminmod.com/threads/15314/"
-    mkdir -p "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip"
-    wget -4 -cnv -O "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip/autoptimize-gzip.php" https://github.com/centminmod/autoptimize-gzip/raw/master/autoptimize-gzip.php
-    wget -4 -cnv -O "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip/index.html" https://github.com/centminmod/autoptimize-gzip/raw/master/index.html
-    wget -4 -cnv -O "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip/readme.md" https://github.com/centminmod/autoptimize-gzip/blob/master/readme.md
-    wget -4 -cnv -O "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip/LICENSE" https://github.com/centminmod/autoptimize-gzip/raw/master/LICENSE
-    chown -R nginx:nginx "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip"
-    \wp plugin activate autoptimize-gzip --allow-root
-    \wp plugin status autoptimize-gzip --allow-root
-  fi
+   fi
 fi
-
 
 
 # remove hello plugin
@@ -2366,6 +2380,7 @@ if [[ -f /root/.wp-cli/commands/super-cache/cli.php && "$cacheenabler" != [yY] ]
 fi
 
 chown -R nginx:nginx /home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/
+
 
 
 # write permissions for log
@@ -3010,9 +3025,15 @@ fi
   fi
 fi
 
+else
+
 echo ""
 cecho "-------------------------------------------------------------" $boldyellow
 cecho "vhost for $vhostname already exists" $boldwhite
 cecho "/home/nginx/domains/$vhostname already exists" $boldwhite
 cecho "-------------------------------------------------------------" $boldyellow
 echo ""
+
+fi
+
+}
