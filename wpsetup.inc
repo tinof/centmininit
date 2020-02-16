@@ -3016,5 +3016,3 @@ cecho "vhost for $vhostname already exists" $boldwhite
 cecho "/home/nginx/domains/$vhostname already exists" $boldwhite
 cecho "-------------------------------------------------------------" $boldyellow
 echo ""
-
-
