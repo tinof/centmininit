@@ -400,7 +400,6 @@ done
         wpcli_ssldefault=1
       
       echo
-       [[ "$vhostssl_opt" -eq '2' || "$vhostssl_opt" -eq '4' ]]; then
         echo "If using Cloudflare in front of site, disable CF option for"
         echo "Always Use HTTPS in CF Dashboard Crypto Tab as Nginx will do"
         echo "the non-https to https redirect on this end and not require"
