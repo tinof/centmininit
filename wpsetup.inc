@@ -451,6 +451,51 @@ if [[ "$vhostssl" = 'invalidopt' ]]; then
   exit 1
 fi
 
+echo "Theme Setup: "
+read -ep "Install CyberChimps Responsive Theme (cyberchimps.com/responsive-theme/) [y/n]: " -i n responsivetheme
+
+echo
+echo "Wordpress Setup: "
+echo
+echo "Not a fan of Gutenberg Editor ? You can switch to Classic Editor"
+echo "If you run into Gutenberg Editor issues, you can later switch to"
+echo "the Classic Editor https://wordpress.org/plugins/classic-editor/"
+read -ep "Install Classic Editor Wordpress Plugin ? [y/n]: " -i y wpclassic_editor
+
+echo
+echo "Autoptimize WP Plugin is installed by default. Do you want to install"
+echo "companion Autoptimize Gzip Plugin to precompresses js/css optimized files"
+echo "details at https://community.centminmod.com/threads/15314/"
+read -ep "Install Autoptimize Gzip Companion Wordpress Plugin ? [y/n]: " -i y wpautoptimize_gzip
+
+if [[ "$wpautoptimize_gzip" = [yY] ]]; then
+  WP_AUTOPTIMIZE_GZIP='y'
+fi
+
+echo
+echo "Google Native LazyLoad Plugin https://wordpress.org/plugins/native-lazyload/"
+read -ep "Install Google Native LazyLoad Plugin ? [y/n]: " -i y wp_google_lazyload
+
+echo
+read -ep "Set custom WP Admin Display Name ? [y/n]: " setdisplayname
+if [[ "$setdisplayname" = [yY] ]]; then
+  read -ep "Enter Custom WP Admin Display Name: " displayname
+  WPADMIN_DISPLAYNAME=$displayname
+fi
+read -ep "Install Wordpress in subdirectory /blog ? [y/n]: " wpsubdirinstall
+
+if [[ "$wpsubdirinstall" = [yY] ]]; then
+  SUBDIR_INSTALL=y
+  read -ep "Enter subdirectory name i.e. /blog enter = blog ? : " wpsubdir_value
+  WPSUBDIR="/$wpsubdir_value"
+  SUBDIR_INCLUDE="include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsecure_${vhostname}.conf;"
+  NONSUBDIR_INCLUDE=""
+elif [[ "$wpsubdirinstall" != [yY] ]]; then
+  SUBDIR_INSTALL=n
+  WPSUBDIR=""
+  SUBDIR_INCLUDE=""
+  NONSUBDIR_INCLUDE="include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsecure_${vhostname}.conf;"
+fi
 
 read -ep "Disable Auto Generated WP Admin Username / Password ? [y/n]: " disableautogen
 read -ep "Disable wp-login.php password protection ? (less security) [y/n]: " disablepwdprotect
@@ -2315,20 +2360,6 @@ rm -rf readme.html
 
 # installed + activated by default
 
-# install google native lazy load plugin
-if [[ "$wp_google_lazyload" = [yY] ]]; then
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install native-lazyload --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-fi
-
-# install classic editor plugin instead of gutenberg
-if [[ "$wpclassic_editor" = [yY] ]]; then
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install classic-editor --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-fi
-
 # wp super cache
 if [[ "$wpscache" = [yY] ]]; then
   cecho "------------------------------------------------------------" $boldgreen
@@ -2356,51 +2387,8 @@ define('WP_CACHE', true);\
 " wp-config.php
   fi
   cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install autoptimize --activate --allow-root
-  # echo "configure autoptimize"
-  # \wp option update autoptimize_cache_clean 0 --allow-root
-  # \wp option update autoptimize_cdn_url "" --allow-root
-  # \wp option update autoptimize_css on --allow-root
-  # \wp option update autoptimize_css_aggregate on --allow-root
-  # \wp option update autoptimize_css_datauris "" --allow-root
-  # \wp option update autoptimize_css_defer "" --allow-root
-  # \wp option update autoptimize_css_defer_inline "" --allow-root
-  # \wp option update autoptimize_css_exclude "wp-content/cache/, wp-content/uploads/, admin-bar.min.css, dashicons.min.css" --allow-root
-  # \wp option update autoptimize_css_include_inline  on --allow-root
-  # \wp option update autoptimize_css_inline "" --allow-root
-  # \wp option update autoptimize_css_justhead "" --allow-root
-  # \wp option update autoptimize_html on --allow-root
-  # \wp option update autoptimize_html_keepcomments on --allow-root
-  # \wp option update autoptimize_imgopt_launched     on --allow-root
-  # \wp option update autoptimize_js on --allow-root
-  # \wp option update autoptimize_js_aggregate on --allow-root
-  # \wp option update autoptimize_js_exclude  "seal.js, js/jquery/jquery.js" --allow-root
-  # \wp option update autoptimize_js_forcehead "" --allow-root
-  # \wp option update autoptimize_js_include_inline "" --allow-root
-  # \wp option update autoptimize_js_justhead "" --allow-root
-  # \wp option update autoptimize_js_trycatch "" --allow-root
-  # \wp option update autoptimize_optimize_checkout "" --allow-root
-  # \wp option update autoptimize_optimize_logged ""  --allow-root
-  # # \wp option update autoptimize_optimize_logged on --allow-root
-  # \wp option update autoptimize_show_adv 1 --allow-root
-  \wp option list --search=autoptimize_* --allow-root
-  if [[ "$WP_AUTOPTIMIZE_GZIP" = [yY] ]]; then
-    # https://community.centminmod.com/threads/15314/
-    # https://github.com/centminmod/autoptimize-gzip
-    echo
-    echo "configure autoptimize-gzip https://community.centminmod.com/threads/15314/"
-    mkdir -p "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip"
-    wget -4 -cnv -O "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip/autoptimize-gzip.php" https://github.com/centminmod/autoptimize-gzip/raw/master/autoptimize-gzip.php
-    wget -4 -cnv -O "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip/index.html" https://github.com/centminmod/autoptimize-gzip/raw/master/index.html
-    wget -4 -cnv -O "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip/readme.md" https://github.com/centminmod/autoptimize-gzip/blob/master/readme.md
-    wget -4 -cnv -O "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip/LICENSE" https://github.com/centminmod/autoptimize-gzip/raw/master/LICENSE
-    chown -R nginx:nginx "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/autoptimize-gzip"
-    \wp plugin activate autoptimize-gzip --allow-root
-    \wp plugin status autoptimize-gzip --allow-root
-  fi
-  cecho "------------------------------------------------------------" $boldgreen
-fi
-
+ 
+ 
 # redis nginx cache
 if [[ "$wpscache" = 'redis' ]]; then
   cecho "------------------------------------------------------------" $boldgreen
@@ -2427,6 +2415,14 @@ if [[ "$wpscache" = 'redis' ]]; then
     \wp plugin status autoptimize-gzip --allow-root
   fi
 fi
+
+cecho "------------------------------------------------------------" $boldgreen
+\wp plugin install sucuri-scanner --activate --allow-root
+cecho "------------------------------------------------------------" $boldgreen
+\wp plugin install disable-xml-rpc --activate --allow-root
+cecho "------------------------------------------------------------" $boldgreen
+\wp plugin install cdn-enabler --activate --allow-root
+cecho "------------------------------------------------------------" $boldgreen
 
 if [[ "$WPPLUGINS_ALL" = [yY] ]]; then
   \wp plugin install rocket-lazy-load --activate --allow-root
@@ -2517,6 +2513,20 @@ if [[ -f /root/.wp-cli/commands/super-cache/cli.php && "$cacheenabler" != [yY] ]
 fi
 
 chown -R nginx:nginx /home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/plugins/
+
+# sucuri-scanner change SUCURI_DATA_STORAGE path above web root
+# /home/nginx/domains/${vhostname}/sucuri_data_storage
+if [ -d "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/uploads/sucuri" ]; then
+  sucuri_datapath=$(echo "/home/nginx/domains/${vhostname}/sucuri_data_storage" | sed -e 's|/|\\\/|g')
+  rm -rf "/home/nginx/domains/${vhostname}/sucuri_data_storage"
+  mkdir -p "/home/nginx/domains/${vhostname}/sucuri_data_storage"
+  chown nginx:nginx "/home/nginx/domains/${vhostname}/sucuri_data_storage"
+  sed -i "s|\"}|\",\"sucuriscan_datastore_path\":\"$sucuri_datapath\"}|" "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/uploads/sucuri/sucuri-settings.php"
+  sed -i 's|/|\\/|g' "/home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/uploads/sucuri/sucuri-settings.php"
+  ls -lah "/home/nginx/domains/${vhostname}/sucuri_data_storage"
+  \cp -Rpf /home/nginx/domains/${vhostname}/public${WPSUBDIR}/wp-content/uploads/sucuri/* "/home/nginx/domains/${vhostname}/sucuri_data_storage"
+  cat "/home/nginx/domains/${vhostname}/sucuri_data_storage/sucuri-settings.php"
+fi
 
 # write permissions for log
 if [ -f wp-content/plugins/tpc-memory-usage/logs/tpcmem.log ]; then
