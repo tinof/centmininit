@@ -397,9 +397,9 @@ done
 
 if [[ "$NGINX_VHOSTSSL" = [yY] ]]; then
   echo
-  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " vhostssl
+  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " -i "n" vhostssl
   if [[ -f "${SCRIPT_DIR}/addons/acmetool.sh" && "$LETSENCRYPT_DETECT" = [yY] ]]; then
-    read -ep "Get Letsencrypt SSL certificate Nginx vhost? [y/n]: " vhostssl_le
+    read -ep "Get Letsencrypt SSL certificate Nginx vhost? [y/n]: " -i "y" vhostssl_le
     if [[ "$vhostssl_le" = [yY] ]]; then
       echo
       echo "You have 4 options: "
@@ -407,7 +407,7 @@ if [[ "$NGINX_VHOSTSSL" = [yY] ]]; then
       echo "2. issue staging test cert with HTTPS default (untrusted)"
       echo "3. issue live cert with HTTP + HTTPS (trusted)"
       echo "4. issue live cert with HTTPS default (trusted)"
-      read -ep "Enter option number 1-4: " vhostssl_opt
+      read -ep "Enter option number 1-4: " -i "4" vhostssl_opt
       if [[ "$vhostssl_opt" = '1' ]]; then
         vhostssl='le'
       elif [[ "$vhostssl_opt" = '2' ]]; then
@@ -449,8 +449,8 @@ fi
 
 
 
-read -ep "Disable Auto Generated WP Admin Username / Password ? [y/n]: " disableautogen
-read -ep "Disable wp-login.php password protection ? (less security) [y/n]: " disablepwdprotect
+read -ep "Disable Auto Generated WP Admin Username / Password ? [y/n]: " -i "y" disableautogen
+read -ep "Disable wp-login.php password protection ? (less security) [y/n]: " -i "y" disablepwdprotect
 
 if [[ "$disableautogen" = [yY] ]]; then
   if [ ! -f /usr/sbin/cracklib-check ]; then
@@ -462,7 +462,7 @@ if [[ "$disableautogen" = [yY] ]]; then
   cecho "--------------------------" $boldgreen
   cecho "Please choose a stronger Username/Password Combination" $boldyellow
   echo
-  read -ep "Enter desired WP Admin Username: " WPADMINUSER
+  read -ep "Enter desired WP Admin Username: " -i "siteadmin" WPADMINUSER
   read -ep "Enter desired WP Admin Password: " WPADMINPASS
 
   CHECKWPADMINPASSWD="$(cracklib-check <<<"$WPADMINPASS")"
@@ -587,7 +587,7 @@ TESTEMAIL=$(echo "${WPADMINEMAIL}" |  grep '^[a-zA-Z0-9._%+-]*@[a-zA-Z0-9-]*[\.[
 while [[ "$TESTEMAIL" = "" ]]; do
   echo
   echo "!! make sure email address is valid and typed correctly !!"
-  read -ep "Enter email address for Wordpress Installation: " WPADMINEMAIL
+  read -ep "Enter email address for Wordpress Installation: " -i "info@hostspot.fi" WPADMINEMAIL
   TESTEMAIL=$(echo "${WPADMINEMAIL}" |  grep '^[a-zA-Z0-9._%+-]*@[a-zA-Z0-9-]*[\.[a-zA-Z0-9]*]*[a-zA-Z0-9]$')
   echo
 done
@@ -2223,7 +2223,7 @@ if [[ -d "/home/nginx/domains/${vhostname}/public" ]]; then
     echo "Using full static page caching may cause problems for mobile & tablet device"
     echo "visitors depending on your WP themes used so you may want to exclude those"
     echo
-    read -ep "Do you want to exclude mobile/tablet devices from full page caching ? [y/n]: " exclude_mobilecache
+    read -ep "Do you want to exclude mobile/tablet devices from full page caching ? [y/n]: " -i "n" exclude_mobilecache
     if [[ "$exclude_mobilecache" = [nN] ]]; then
       if [ -f "/usr/local/nginx/conf/wpincludes/${vhostname}/wpcacheenabler_${vhostname}.conf" ]; then
         sed -i "s|^    if (\$cmwpcache_device = mobile) { set \$cache_uri 'nullcache'; }|#    if (\$cmwpcache_device = mobile) { set \$cache_uri 'nullcache'; }|" "/usr/local/nginx/conf/wpincludes/${vhostname}/wpcacheenabler_${vhostname}.conf"
