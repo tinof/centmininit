@@ -513,16 +513,16 @@ select_wpcache_opts=("KeyCDN Cache Enabler" "Redis Nginx Level Caching" "Wordpre
   else
 PS3='--------------------------------------------------------
 Enter option [ 1 - 3 ] '
-select_wpcache_opts=("KeyCDN Cache Enabler" "Wordpress Super Cache" "Fastcgi_cache (PHP-FPM)")
+select_wpcache_opts=("KeyCDN Cache Enabler" "WP Rocket Cache" "Fastcgi_cache (PHP-FPM)")
   fi
 elif [[ "$redis_ngx_exists" = [yY] ]]; then
 PS3='--------------------------------------------------------
 Enter option [ 1 - 3 ] '
-select_wpcache_opts=("KeyCDN Cache Enabler" "Redis Nginx Level Caching" "Wordpress Super Cache")
+select_wpcache_opts=("KeyCDN Cache Enabler" "Redis Nginx Level Caching" "WP Rocket Cache")
 else
 PS3='--------------------------------------------------------
 Enter option [ 1 - 2 ] '
-select_wpcache_opts=("KeyCDN Cache Enabler" "Wordpress Super Cache")
+select_wpcache_opts=("KeyCDN Cache Enabler" "WP Rocket Cache")
 fi
 select optwp in "${select_wpcache_opts[@]}"; do
 case $optwp in
@@ -542,11 +542,11 @@ case $optwp in
     echo
     break
     ;;
-  "Wordpress Super Cache" )
+  "WP Rocket Cache" )
     wpscache='y'
     wpcache_option=$REPLY
     echo
-    echo "you selected option $wpcache_option (Wordpress Super Cache) [wpscache=$wpscache]"
+    echo "you selected option $wpcache_option (WP Rocket Cache) [wpscache=$wpscache]"
     echo
     break
     ;;
@@ -722,8 +722,6 @@ fi
 
 ################################################################################
 # create wp super cache's included php config file php-wpsc.conf
-\cp -f /usr/local/nginx/conf/php.conf /usr/local/nginx/conf/php-wpsc.conf
-sed -i "s|fastcgi_param  SERVER_NAME        \$server_name;|fastcgi_param  SERVER_NAME        \$http_host;|" /usr/local/nginx/conf/php-wpsc.conf
 
 ################################################################################
 # create wp enable enabler included files https://community.centminmod.com/posts/21220/
@@ -1177,7 +1175,7 @@ server {
   #autoindex  on;
 
   # for wordpress super cache plugin
-  try_files /wp-content/cache/supercache/\$http_host/\$cache_uri/index.html \$uri \$uri/ ${WPSUBDIR}/index.php?q=\$uri&\$args;
+   try_files $uri $uri/ /index.php?$args;
 
   # for wp cache enabler plugin
   #try_files \$cache_enabler_uri \$uri \$uri/ \$custom_subdir/index.php?\$args;
@@ -1320,7 +1318,7 @@ server {
   #autoindex  on;
 
   # for wordpress super cache plugin
-  try_files /wp-content/cache/supercache/\$http_host/\$cache_uri/index.html \$uri \$uri/ ${WPSUBDIR}/index.php?q=\$uri&\$args;
+  try_files $uri $uri/ /index.php?$args;
 
   # for wp cache enabler plugin
   #try_files \$cache_enabler_uri \$uri \$uri/ \$custom_subdir/index.php?\$args;  
@@ -1429,7 +1427,7 @@ server {
   include /usr/local/nginx/conf/503include-main.conf;
 
   #include /usr/local/nginx/conf/wpincludes/${vhostname}/wpcacheenabler_${vhostname}.conf;
-  include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsupercache_${vhostname}.conf;
+  #include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsupercache_${vhostname}.conf;
   # https://community.centminmod.com/posts/18828/
   #include /usr/local/nginx/conf/wpincludes/${vhostname}/rediscache_${vhostname}.conf;  
 
@@ -1441,7 +1439,7 @@ server {
   #autoindex  on;
 
   # for wordpress super cache plugin
-  try_files /wp-content/cache/supercache/\$http_host/\$cache_uri/index.html \$uri \$uri/ ${WPSUBDIR}/index.php?q=\$uri&\$args;
+  try_files $uri $uri/ /index.php?$args;
 
   # for wp cache enabler plugin
   #try_files \$cache_enabler_uri \$uri \$uri/ \$custom_subdir/index.php?\$args;   
@@ -2211,7 +2209,7 @@ if [[ -d "/home/nginx/domains/${vhostname}/public" ]]; then
     cacheenabler=y
     cecho "Setup Wordpress + Cache Enabler for $vhostname" $boldyellow
   elif [[ "$wpscache" = [yY] ]]; then
-    cecho "Setup Wordpress + Super Cache for $vhostname" $boldyellow
+    cecho "Setup Wordpress + WP Rocket Cache for $vhostname" $boldyellow
   elif [[ "$wpscache" = 'redis' ]]; then
     cecho "Setup Wordpress + Redis Nginx Level Cache for $vhostname" $boldyellow
     installredisserver
@@ -2284,15 +2282,21 @@ fi
 
 if [[ "$WPCLI_SUPERCACHEPLUGIN" = [yY] && ! -f /root/.wp-cli/commands/super-cache/cli.php ]]; then
   # https://github.com/wp-cli/wp-super-cache-cli.git
-  mkdir -p /root/.wp-cli/commands
-  time git clone https://github.com/wp-cli/wp-super-cache-cli.git /root/.wp-cli/commands/super-cache
-  echo "require:" > /root/.wp-cli/config.yml
-  echo "  - commands/super-cache/cli.php" >> /root/.wp-cli/config.yml
+cd /usr/local/nginx
+git clone https://github.com/SatelliteWP/rocket-nginx
+cd rocket-nginx
+cp rocket-nginx.ini.disabled rocket-nginx.ini
+php rocket-nginx.ini
+php rocket-parser.php
+service nginx restart
 elif [ -f /root/.wp-cli/commands/super-cache/cli.php ]; then
-  cd /root/.wp-cli/commands/super-cache
-  git stash
-  git pull
-  cd /home/nginx/domains/${vhostname}/public${WPSUBDIR}
+cd /usr/local/nginx
+git clone https://github.com/SatelliteWP/rocket-nginx
+cd rocket-nginx
+cp rocket-nginx.ini.disabled rocket-nginx.ini
+php rocket-nginx.ini
+php rocket-parser.php
+service nginx restart
 fi
 
  
@@ -2310,11 +2314,7 @@ rm -rf readme.html
 
 # wp super cache
 if [[ "$wpscache" = [yY] ]]; then
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install wp-super-cache --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install wp-super-cache-clear-cache-menu --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
+  
 fi
 
 # wp cache enabler
@@ -2396,13 +2396,11 @@ fi
 if [[ "$wpscache" = [nN] ]]; then
     if [ -f "/usr/local/nginx/conf/conf.d/${vhostname}.conf" ]; then
         sed -i "s|^  #include /usr/local/nginx/conf/wpincludes/${vhostname}/wpcacheenabler_${vhostname}.conf|  include /usr/local/nginx/conf/wpincludes/${vhostname}/wpcacheenabler_${vhostname}.conf|" /usr/local/nginx/conf/conf.d/${vhostname}.conf
-        sed -i "s|^  include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsupercache_${vhostname}.conf|  #include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsupercache_${vhostname}.conf|" /usr/local/nginx/conf/conf.d/${vhostname}.conf
         sed -i "s|try_files /wp-content/cache/supercache/\$http_host|#try_files /wp-content/cache/supercache/\$http_host|" /usr/local/nginx/conf/conf.d/${vhostname}.conf
         sed -i "s|#try_files \$cache_enabler_uri|try_files \$cache_enabler_uri|" /usr/local/nginx/conf/conf.d/${vhostname}.conf
     fi
     if [ -f "/usr/local/nginx/conf/conf.d/${vhostname}.ssl.conf" ]; then
         sed -i "s|^  #include /usr/local/nginx/conf/wpincludes/${vhostname}/wpcacheenabler_${vhostname}.conf|  include /usr/local/nginx/conf/wpincludes/${vhostname}/wpcacheenabler_${vhostname}.conf|" /usr/local/nginx/conf/conf.d/${vhostname}.ssl.conf
-        sed -i "s|^  include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsupercache_${vhostname}.conf|  #include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsupercache_${vhostname}.conf|" /usr/local/nginx/conf/conf.d/${vhostname}.ssl.conf
         sed -i "s|try_files /wp-content/cache/supercache/\$http_host|#try_files /wp-content/cache/supercache/\$http_host|" /usr/local/nginx/conf/conf.d/${vhostname}.ssl.conf
         sed -i "s|#try_files \$cache_enabler_uri|try_files \$cache_enabler_uri|" /usr/local/nginx/conf/conf.d/${vhostname}.ssl.conf
     fi
@@ -2411,7 +2409,6 @@ fi
 if [[ "$wpscache" = 'redis' ]]; then
     if [ -f "/usr/local/nginx/conf/conf.d/${vhostname}.conf" ]; then
         sed -i "s|^  #include /usr/local/nginx/conf/wpincludes/${vhostname}/rediscache_${vhostname}.conf;|  include /usr/local/nginx/conf/wpincludes/${vhostname}/rediscache_${vhostname}.conf;|" /usr/local/nginx/conf/conf.d/${vhostname}.conf
-        sed -i "s|^  include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsupercache_${vhostname}.conf|  #include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsupercache_${vhostname}.conf|" /usr/local/nginx/conf/conf.d/${vhostname}.conf
         sed -i "s|try_files /wp-content/cache/supercache/\$http_host|#try_files /wp-content/cache/supercache/\$http_host|" /usr/local/nginx/conf/conf.d/${vhostname}.conf
         sed -i "s|#try_files \$uri \$uri/ ${WPSUBDIR}/index.php?\$args;|try_files \$uri \$uri/ ${WPSUBDIR}/index.php?\$args;|" /usr/local/nginx/conf/conf.d/${vhostname}.conf
         sed -i "s|include /usr/local/nginx/conf/php-wpsc.conf;|#include /usr/local/nginx/conf/php-wpsc.conf;|g" /usr/local/nginx/conf/conf.d/${vhostname}.conf
@@ -2419,7 +2416,6 @@ if [[ "$wpscache" = 'redis' ]]; then
     fi
     if [ -f "/usr/local/nginx/conf/conf.d/${vhostname}.ssl.conf" ]; then
         sed -i "s|^  #include /usr/local/nginx/conf/wpincludes/${vhostname}/rediscache_${vhostname}.conf;|  include /usr/local/nginx/conf/wpincludes/${vhostname}/rediscache_${vhostname}.conf;|" /usr/local/nginx/conf/conf.d/${vhostname}.ssl.conf
-        sed -i "s|^  include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsupercache_${vhostname}.conf|  #include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsupercache_${vhostname}.conf|" /usr/local/nginx/conf/conf.d/${vhostname}.ssl.conf
         sed -i "s|try_files /wp-content/cache/supercache/\$http_host|#try_files /wp-content/cache/supercache/\$http_host|" /usr/local/nginx/conf/conf.d/${vhostname}.ssl.conf
         sed -i "s|#try_files \$uri \$uri/ ${WPSUBDIR}/index.php?\$args;|try_files \$uri \$uri/ ${WPSUBDIR}/index.php?\$args;|" /usr/local/nginx/conf/conf.d/${vhostname}.ssl.conf
         sed -i "s|include /usr/local/nginx/conf/php-wpsc.conf;|#include /usr/local/nginx/conf/php-wpsc.conf;|g" /usr/local/nginx/conf/conf.d/${vhostname}.ssl.conf
