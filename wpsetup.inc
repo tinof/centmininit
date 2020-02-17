@@ -2312,10 +2312,6 @@ rm -rf readme.html
 # installed + activated by default
 
 
-# wp super cache
-if [[ "$wpscache" = [yY] ]]; then
-  
-fi
 
 # wp cache enabler
 if [[ "$wpscache" = [nN] ]]; then
