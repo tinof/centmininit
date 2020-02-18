@@ -33,10 +33,17 @@ NGINX_ALLOWOVERRIDE='y'
 #NGINX_FATLTO_OBJECTS='n'        # enable -ffat-lto-objects flag for nginx builds - much slower compile times
 #NGINX_NOFATLTO_OBJECTS='n'      # enable -fno-fat-lto-objects flag for nginx builds - much slower compile times
 
+NGINX_BROTLIDEP_UPDATE='y'
 NGINX_DYNAMICTLS='y'  
 NGINX_SSLCACHE_ALLOWOVERRIDE='y'    
 NGXDYNAMIC_BROTLI='y'
 NGINX_LIBBROTLI='y'
+NGINXPATCH='y'
+NGINX_GEOIPTWOLITE='y
+NGXDYNAMIC_GEOIPTWOLITE='y'
+
+MM_LICENSE_KEY='kmKFLNgEjpka4daq'
+
 AUTOHARDTUNE_NGINXBACKLOG='y'
 
 MARIADB_INSTALLTENFOUR='y'
@@ -68,6 +75,7 @@ PHP_PGO='y'
 
 PHP_TUNING='y'
 
+PHP_ARGON='y
 PHP_BROTLI='y'
 PHP_LZFOUR='y'
 PHP_LZF='y'
