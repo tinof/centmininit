@@ -1,4 +1,3 @@
-CMGIT='https://github.com/centminmod/centminmod.git'
 AUTO_GITUPDATE='y'
 
 WPPLUGINS_ALL='n' 
