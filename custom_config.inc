@@ -1,4 +1,10 @@
+CMGIT='https://github.com/centminmod/centminmod.git'
 AUTO_GITUPDATE='y'
+
+WPPLUGINS_ALL='n' 
+
+NGINX_MODSECURITY='y'
+NGINX_MODSECURITY_MAXMIND='y'
 
 VHOSTCTRL_CLOUDFLAREINC='y'
 
@@ -24,17 +30,13 @@ NGINX_IOURING_PATCH='y'
 ##Upgrading NGINX. Disable, if custom configs  
 NGINX_ALLOWOVERRIDE='y'  
 
-NGINX_BROTLIDEP_UPDATE='y'
+#NGINX_FATLTO_OBJECTS='n'        # enable -ffat-lto-objects flag for nginx builds - much slower compile times
+#NGINX_NOFATLTO_OBJECTS='n'      # enable -fno-fat-lto-objects flag for nginx builds - much slower compile times
+
 NGINX_DYNAMICTLS='y'  
 NGINX_SSLCACHE_ALLOWOVERRIDE='y'    
 NGXDYNAMIC_BROTLI='y'
 NGINX_LIBBROTLI='y'
-NGINXPATCH='y'
-NGINX_GEOIPTWOLITE='y
-NGXDYNAMIC_GEOIPTWOLITE='y'
-
-MM_LICENSE_KEY='kmKFLNgEjpka4daq'
-
 AUTOHARDTUNE_NGINXBACKLOG='y'
 
 MARIADB_INSTALLTENFOUR='y'
@@ -66,31 +68,24 @@ PHP_PGO='y'
 
 PHP_TUNING='y'
 
-PHP_ARGON='y
 PHP_BROTLI='y'
 PHP_LZFOUR='y'
 PHP_LZF='y'
 PHP_ZSTD='y'
-
-PHPDEBUGMODE='n'             # --enable-debug PHP compile flag
-PHPFINFO='n'                 # Disable or Enable PHP File Info extension
-PHPRECODE=n                  # Disable or Enable PHP Recode extension
-PHPSNMP='n'                  # Disable or Enable PHP SNMP extension
-PHPIMAGICK='n'               # Disable or Enable PHP ImagicK extension
-PHPMAILPARSE='n'             # Disable or Enable PHP mailparse extension
-PHPIONCUBE='n'               # Disable or Enable Ioncube Loader via addons/ioncube.sh
-#PHP_LTO='y'  #For 16+ Cores, 32Gb+ RAM
+  
 PHP_MEMCACHE='n'
-PHP_MEMCACHED='n'  
-PHPREDIS='n'
+PHP_MEMCACHED='n'
 
 ZSTD_LOGROTATE_NGINX='y'
 ZSTD_LOGROTATE_PHPFPM='y'
 
+PHP_MEMCACHE='n'
+PHP_MEMCACHED='n'
+  
 MEMCACHED_INSTALL='n'
 NSD_INSTALL='n'
 MEMCACHED_DISABLED='y' 
 NSD_DISABLED='y'  
 MARCH_TARGETNATIVE_ALWAYS='y'
-
+PHPREDIS='n'
 NGINX_HTTPREDIS='n'
