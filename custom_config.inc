@@ -1,8 +1,5 @@
 AUTO_GITUPDATE='y'
 
-CUSTOMSERVERNAME='y'
-CUSTOMSERVERSTRING='nginx'
-
 VHOSTCTRL_CLOUDFLAREINC='y'
 
 ENABLEMOTD_CSFMSG='n'         # motd banner csf message alert disaply
