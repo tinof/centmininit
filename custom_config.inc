@@ -24,7 +24,7 @@ PHP_UPDATEMAINTENANCE='y'
 MARIADB_UPDATEMAINTENANCE='y'
  
 ##For Linux Kernel  > 5.1.x
-NGINX_IOURING_PATCH_BETA='y
+NGINX_IOURING_PATCH_BETA='y'
 
 ##Upgrading NGINX. Disable, if custom configs  
 NGINX_ALLOWOVERRIDE='y'  
