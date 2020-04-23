@@ -1,5 +1,3 @@
-AUTO_GITUPDATE='y'
-
 WPPLUGINS_ALL='n' 
 
 NGINX_MODSECURITY='y'
@@ -16,7 +14,7 @@ AUTOTUNE_CLIENTMAXBODY='y'
 ## FOR PHP 7.4+
 FPM_WAKEUP_PATCH='y'
 
-#AUTODETECPHP_OVERRIDE='y'
+AUTODETECPHP_OVERRIDE='y'
 
 # Maintenance Mode (will run maintenance mode during these upgrades)
 NGINX_UPDATEMAINTENANCE='y'
