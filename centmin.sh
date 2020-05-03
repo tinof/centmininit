@@ -6,8 +6,8 @@ yum -y install nano
 wget https://raw.githubusercontent.com/tinof/centmininit/master/custom_config.inc -O /etc/centminmod/custom_config.inc
 
 
-# install centmin mod latest beta with php-fpm 7.3 default
-yum -y update; curl -O https://centminmod.com/betainstaller73.sh && chmod 0700 betainstaller73.sh && bash betainstaller73.sh
+# install centmin mod latest beta with php-fpm 7.4 default
+yum -y update; curl -O https://centminmod.com/betainstaller74.sh && chmod 0700 betainstaller74.sh && bash betainstaller74.sh
 
 
 # setup extended CSF Firewall blocklists https://community.centminmod.com/posts/50060/
