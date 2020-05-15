@@ -1,8 +1,5 @@
 WPPLUGINS_ALL='n' 
 
-#NGINX_MODSECURITY='y'
-#NGINX_MODSECURITY_MAXMIND='y'
-
 VHOSTCTRL_CLOUDFLAREINC='y'
 
 ENABLEMOTD_CSFMSG='n'         # motd banner csf message alert disaply
@@ -16,13 +13,9 @@ FPM_WAKEUP_PATCH='y'
 
 AUTODETECPHP_OVERRIDE='y'
 
-# Maintenance Mode (will run maintenance mode during these upgrades)
-NGINX_UPDATEMAINTENANCE='y'
-PHP_UPDATEMAINTENANCE='y'
-MARIADB_UPDATEMAINTENANCE='y'
  
 ##For Linux Kernel  > 5.1.x
-NGINX_IOURING_PATCH_BETA='y'
+#NGINX_IOURING_PATCH_BETA='y'
 
 ##Upgrading NGINX. Disable, if custom configs  
 NGINX_ALLOWOVERRIDE='y'  
