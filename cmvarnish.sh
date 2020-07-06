@@ -15,4 +15,6 @@ wget https://raw.githubusercontent.com/tinof/centmininit/master/hitch-deploy-hoo
 chmod a+x /usr/bin/hitch-deploy-hook
 
 usermod -a -G varnish hitch
-service restart hitch
+service hitch restart
+
+
