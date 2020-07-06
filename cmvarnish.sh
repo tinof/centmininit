@@ -6,7 +6,7 @@ wget https://raw.githubusercontent.com/tinof/centmininit/master/varnishcache_var
 yum -y install varnish.x86_64
 dd if=/dev/random of=/etc/varnish/secret count=1
 
-yum install hitch
+yum -y install hitch
 semanage permissive -a varnishd_t
 semanage permissive -a httpd_t
 openssl dhparam -rand - 2048 | sudo tee /etc/hitch/dhparams.pem
