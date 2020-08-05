@@ -75,7 +75,7 @@ if [[ "$CHECKMYSQL_PING" -ne '0' ]]; then
   exit
 fi
 echo
-read -ep "Do you want to continue with Nginx vhost site creation ? [y/n] " dovhost_continue
+read -ep "Do you want to continue with Nginx vhost site creation ? [y/n] " -i "y" dovhost_continue 
 echo
 
 if [[ "$dovhost_continue" != [yY] ]]; then
@@ -387,7 +387,7 @@ if [[ "$NGINX_VHOSTSSL" = [yY] ]]; then
       echo "2. issue staging test cert with HTTPS default (untrusted)"
       echo "3. issue live cert with HTTP + HTTPS (trusted)"
       echo "4. issue live cert with HTTPS default (trusted)"
-      read -ep "Enter option number 1-4: " vhostssl_opt
+      read -ep "Enter option number 1-4: " -i "4" vhostssl_opt
       if [[ "$vhostssl_opt" = '1' ]]; then
         vhostssl='le'
       elif [[ "$vhostssl_opt" = '2' ]]; then
