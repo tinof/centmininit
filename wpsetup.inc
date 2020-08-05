@@ -2296,21 +2296,6 @@ chmod 0770 wp-content
 chmod 0400 readme.html
 rm -rf readme.html
 
-# installed + activated by default
-
-# install google native lazy load plugin
-if [[ "$wp_google_lazyload" = [yY] ]]; then
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install native-lazyload --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-fi
-
-# install classic editor plugin instead of gutenberg
-if [[ "$wpclassic_editor" = [yY] ]]; then
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install classic-editor --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-fi
 
 # wp super cache
 if [[ "$wpscache" = [yY] ]]; then
@@ -2426,55 +2411,7 @@ if [[ "$WPPLUGINS_ALL" = [yY] ]]; then
   cecho "------------------------------------------------------------" $boldgreen
   \wp plugin install limit-login-attempts --activate --allow-root
   cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install wp-updates-notifier --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install no-longer-in-directory --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  # \wp plugin install google-sitemap-generator --activate --allow-root
-  # cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install wp-optimize --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  # \wp plugin install wp-smushit --activate --allow-root
-  # cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install tpc-memory-usage --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install gtmetrix-for-wordpress --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install p3-profiler --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install wordpress-seo --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install updraftplus --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install google-analytics-for-wordpress --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install heartbeat-control --activate --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  
-  # installed but disabled by default
-  # cecho "------------------------------------------------------------" $boldgreen
-  # \wp plugin install nginx-helper --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install query-monitor --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install go-newrelic --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install db-cache-reloaded-fix --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install google-authenticator --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install addthis-smart-layers --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install search-regex --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install disable-emojis --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install wp-user-avatar --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  \wp plugin install lazy-load-for-videos --allow-root
-  cecho "------------------------------------------------------------" $boldgreen
-  #\wp plugin install disable-xml-rpc-pingback --allow-root
-  #cecho "------------------------------------------------------------" $boldgreen
+   
 fi # WPPLUGINS_ALL=y
 
 # remove hello plugin
@@ -2690,9 +2627,9 @@ chmod 0700 /usr/bin/wp
 #/usr/bin/wp core check-update --allow-root
 
 # for major core updates uncomment 3 lines directly below
-#/usr/bin/wp core update --allow-root
-#/usr/bin/wp core update-db --allow-root
-#/usr/bin/wp core update --allow-root
+/usr/bin/wp core update --allow-root
+/usr/bin/wp core update-db --allow-root
+/usr/bin/wp core update --allow-root
 
 # for minor core updates uncomment 3 lines directly below
 #/usr/bin/wp core update --minor --allow-root
