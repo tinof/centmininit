@@ -106,7 +106,7 @@ if [[ "$CHECKMYSQL_PING" -ne '0' ]]; then
   exit
 fi
 echo
-read -ep "Do you want to continue with Nginx vhost site creation ? [y/n] " " -i y dovhost_continue
+read -ep "Do you want to continue with Nginx vhost site creation ? [y/n] " -i y dovhost_continue
 echo
 
 if [[ "$dovhost_continue" != [yY] ]]; then
@@ -408,9 +408,9 @@ done
 
 if [[ "$NGINX_VHOSTSSL" = [yY] ]]; then
   echo
-  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " -i n vhostssl
+  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " -i y vhostssl
   if [[ -f "${SCRIPT_DIR}/addons/acmetool.sh" && "$LETSENCRYPT_DETECT" = [yY] ]]; then
-    read -ep "Get Letsencrypt SSL certificate Nginx vhost? [y/n]: " -i y vhostssl_le
+    read -ep "Get Letsencrypt SSL certificate Nginx vhost? [y/n]: " vhostssl_le
     if [[ "$vhostssl_le" = [yY] ]]; then
       echo
       echo "You have 4 options: "
@@ -418,7 +418,7 @@ if [[ "$NGINX_VHOSTSSL" = [yY] ]]; then
       echo "2. issue staging test cert with HTTPS default (untrusted)"
       echo "3. issue live cert with HTTP + HTTPS (trusted)"
       echo "4. issue live cert with HTTPS default (trusted)"
-      read -ep "Enter option number 1-4: " -i 4 vhostssl_opt
+      read -ep "Enter option number 1-4: " vhostssl_opt
       if [[ "$vhostssl_opt" = '1' ]]; then
         vhostssl='le'
       elif [[ "$vhostssl_opt" = '2' ]]; then
@@ -464,13 +464,13 @@ echo
 echo "Not a fan of Gutenberg Editor ? You can switch to Classic Editor"
 echo "If you run into Gutenberg Editor issues, you can later switch to"
 echo "the Classic Editor https://wordpress.org/plugins/classic-editor/"
-read -ep "Install Classic Editor Wordpress Plugin ? [y/n]: " -i n wpclassic_editor
+read -ep "Install Classic Editor Wordpress Plugin ? [y/n]: " -i y wpclassic_editor
 
 echo
 echo "Autoptimize WP Plugin is installed by default. Do you want to install"
 echo "companion Autoptimize Gzip Plugin to precompresses js/css optimized files"
 echo "details at https://community.centminmod.com/threads/15314/"
-read -ep "Install Autoptimize Gzip Companion Wordpress Plugin ? [y/n]: " -i n wpautoptimize_gzip
+read -ep "Install Autoptimize Gzip Companion Wordpress Plugin ? [y/n]: " -i y wpautoptimize_gzip
 
 if [[ "$wpautoptimize_gzip" = [yY] ]]; then
   WP_AUTOPTIMIZE_GZIP='y'
@@ -478,7 +478,7 @@ fi
 
 echo
 echo "Google Native LazyLoad Plugin https://wordpress.org/plugins/native-lazyload/"
-read -ep "Install Google Native LazyLoad Plugin ? [y/n]: " -i n wp_google_lazyload
+read -ep "Install Google Native LazyLoad Plugin ? [y/n]: " -i y wp_google_lazyload
 
 echo
 read -ep "Set custom WP Admin Display Name ? [y/n]: " setdisplayname
@@ -486,7 +486,7 @@ if [[ "$setdisplayname" = [yY] ]]; then
   read -ep "Enter Custom WP Admin Display Name: " displayname
   WPADMIN_DISPLAYNAME=$displayname
 fi
-read -ep "Install Wordpress in subdirectory /blog ? [y/n]: " -i n wpsubdirinstall
+read -ep "Install Wordpress in subdirectory /blog ? [y/n]: " wpsubdirinstall
 
 if [[ "$wpsubdirinstall" = [yY] ]]; then
   SUBDIR_INSTALL=y
@@ -501,8 +501,8 @@ elif [[ "$wpsubdirinstall" != [yY] ]]; then
   NONSUBDIR_INCLUDE="include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsecure_${vhostname}.conf;"
 fi
 
-read -ep "Disable Auto Generated WP Admin Username / Password ? [y/n]: " -i y disableautogen
-read -ep "Disable wp-login.php password protection ? (less security) [y/n]: " -i y disablepwdprotect
+read -ep "Disable Auto Generated WP Admin Username / Password ? [y/n]: " disableautogen
+read -ep "Disable wp-login.php password protection ? (less security) [y/n]: " disablepwdprotect
 
 if [[ "$disableautogen" = [yY] ]]; then
   if [ ! -f /usr/sbin/cracklib-check ]; then
@@ -514,7 +514,7 @@ if [[ "$disableautogen" = [yY] ]]; then
   cecho "--------------------------" $boldgreen
   cecho "Please choose a stronger Username/Password Combination" $boldyellow
   echo
-  read -ep "Enter desired WP Admin Username: "  -i siteadmin WPADMINUSER
+  read -ep "Enter desired WP Admin Username: " WPADMINUSER
   read -ep "Enter desired WP Admin Password: " WPADMINPASS
 
   CHECKWPADMINPASSWD="$(cracklib-check <<<"$WPADMINPASS")"
@@ -531,7 +531,7 @@ if [[ "$disableautogen" = [yY] ]]; then
   done
 fi
 
-read -ep "Enter email address for Admin User for Wordpress Installation: "  -i tino.fotiou@gmail.com WPADMINEMAIL
+read -ep "Enter email address for Admin User for Wordpress Installation: " WPADMINEMAIL
 
 # check if nginx server is compiled with default redis nginx modules, 
 # otherwise hide redis cache option if nginx server is missing 
@@ -652,7 +652,7 @@ if [[ "$PUREFTPD_DISABLED" = [nN] ]]; then
     yum -y -q install pwgen
   fi  
   read -ep "Create FTP username for vhost domain (enter username): " ftpuser
-  read -ep "Do you want to auto generate FTP password (recommended) [y/n]: " -i y autogenpass
+  read -ep "Do you want to auto generate FTP password (recommended) [y/n]: " autogenpass
 
   if [[ "$autogenpass" = [yY] ]]; then
     ftppass=$(pwgen -1cnys 27)
@@ -2285,7 +2285,7 @@ if [[ -d "/home/nginx/domains/${vhostname}/public" ]]; then
     echo "Using full static page caching may cause problems for mobile & tablet device"
     echo "visitors depending on your WP themes used so you may want to exclude those"
     echo
-    read -ep "Do you want to exclude mobile/tablet devices from full page caching ? [y/n]: " -i n exclude_mobilecache
+    read -ep "Do you want to exclude mobile/tablet devices from full page caching ? [y/n]: " exclude_mobilecache
     if [[ "$exclude_mobilecache" = [nN] ]]; then
       if [ -f "/usr/local/nginx/conf/wpincludes/${vhostname}/wpcacheenabler_${vhostname}.conf" ]; then
         sed -i "s|^    if (\$cmwpcache_device = mobile) { set \$cache_uri 'nullcache'; }|#    if (\$cmwpcache_device = mobile) { set \$cache_uri 'nullcache'; }|" "/usr/local/nginx/conf/wpincludes/${vhostname}/wpcacheenabler_${vhostname}.conf"
