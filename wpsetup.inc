@@ -106,7 +106,7 @@ if [[ "$CHECKMYSQL_PING" -ne '0' ]]; then
   exit
 fi
 echo
-read -ep "Do you want to continue with Nginx vhost site creation ? [y/n] " dovhost_continue
+read -ep "Do you want to continue with Nginx vhost site creation ? [y/n] " -i y dovhost_continue
 echo
 
 if [[ "$dovhost_continue" != [yY] ]]; then
@@ -408,7 +408,7 @@ done
 
 if [[ "$NGINX_VHOSTSSL" = [yY] ]]; then
   echo
-  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " vhostssl
+  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " -i n vhostssl
   if [[ -f "${SCRIPT_DIR}/addons/acmetool.sh" && "$LETSENCRYPT_DETECT" = [yY] ]]; then
     read -ep "Get Letsencrypt SSL certificate Nginx vhost? [y/n]: " vhostssl_le
     if [[ "$vhostssl_le" = [yY] ]]; then
@@ -464,13 +464,13 @@ echo
 echo "Not a fan of Gutenberg Editor ? You can switch to Classic Editor"
 echo "If you run into Gutenberg Editor issues, you can later switch to"
 echo "the Classic Editor https://wordpress.org/plugins/classic-editor/"
-read -ep "Install Classic Editor Wordpress Plugin ? [y/n]: " -i y wpclassic_editor
+read -ep "Install Classic Editor Wordpress Plugin ? [y/n]: " -i n wpclassic_editor
 
 echo
 echo "Autoptimize WP Plugin is installed by default. Do you want to install"
 echo "companion Autoptimize Gzip Plugin to precompresses js/css optimized files"
 echo "details at https://community.centminmod.com/threads/15314/"
-read -ep "Install Autoptimize Gzip Companion Wordpress Plugin ? [y/n]: " -i y wpautoptimize_gzip
+read -ep "Install Autoptimize Gzip Companion Wordpress Plugin ? [y/n]: " -i n wpautoptimize_gzip
 
 if [[ "$wpautoptimize_gzip" = [yY] ]]; then
   WP_AUTOPTIMIZE_GZIP='y'
@@ -478,7 +478,7 @@ fi
 
 echo
 echo "Google Native LazyLoad Plugin https://wordpress.org/plugins/native-lazyload/"
-read -ep "Install Google Native LazyLoad Plugin ? [y/n]: " -i y wp_google_lazyload
+read -ep "Install Google Native LazyLoad Plugin ? [y/n]: " -i n wp_google_lazyload
 
 echo
 read -ep "Set custom WP Admin Display Name ? [y/n]: " setdisplayname
@@ -486,7 +486,7 @@ if [[ "$setdisplayname" = [yY] ]]; then
   read -ep "Enter Custom WP Admin Display Name: " displayname
   WPADMIN_DISPLAYNAME=$displayname
 fi
-read -ep "Install Wordpress in subdirectory /blog ? [y/n]: " wpsubdirinstall
+read -ep "Install Wordpress in subdirectory /blog ? [y/n]: " -i n wpsubdirinstall
 
 if [[ "$wpsubdirinstall" = [yY] ]]; then
   SUBDIR_INSTALL=y
@@ -501,8 +501,8 @@ elif [[ "$wpsubdirinstall" != [yY] ]]; then
   NONSUBDIR_INCLUDE="include /usr/local/nginx/conf/wpincludes/${vhostname}/wpsecure_${vhostname}.conf;"
 fi
 
-read -ep "Disable Auto Generated WP Admin Username / Password ? [y/n]: " disableautogen
-read -ep "Disable wp-login.php password protection ? (less security) [y/n]: " disablepwdprotect
+read -ep "Disable Auto Generated WP Admin Username / Password ? [y/n]: " -i y disableautogen
+read -ep "Disable wp-login.php password protection ? (less security) [y/n]: " -i y disablepwdprotect
 
 if [[ "$disableautogen" = [yY] ]]; then
   if [ ! -f /usr/sbin/cracklib-check ]; then
