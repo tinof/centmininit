@@ -106,7 +106,7 @@ if [[ "$CHECKMYSQL_PING" -ne '0' ]]; then
   exit
 fi
 echo
-read -ep "Do you want to continue with Nginx vhost site creation ? [y/n] " -i y dovhost_continue
+read -ep "Do you want to continue with Nginx vhost site creation ? [y/n] " dovhost_continue
 echo
 
 if [[ "$dovhost_continue" != [yY] ]]; then
@@ -408,7 +408,7 @@ done
 
 if [[ "$NGINX_VHOSTSSL" = [yY] ]]; then
   echo
-  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " -i y vhostssl
+  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " vhostssl
   if [[ -f "${SCRIPT_DIR}/addons/acmetool.sh" && "$LETSENCRYPT_DETECT" = [yY] ]]; then
     read -ep "Get Letsencrypt SSL certificate Nginx vhost? [y/n]: " vhostssl_le
     if [[ "$vhostssl_le" = [yY] ]]; then
