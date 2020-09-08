@@ -408,7 +408,7 @@ done
 
 if [[ "$NGINX_VHOSTSSL" = [yY] ]]; then
   echo
-  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " -i n vhostssl
+  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " vhostssl
   if [[ -f "${SCRIPT_DIR}/addons/acmetool.sh" && "$LETSENCRYPT_DETECT" = [yY] ]]; then
     read -ep "Get Letsencrypt SSL certificate Nginx vhost? [y/n]: " vhostssl_le
     if [[ "$vhostssl_le" = [yY] ]]; then
@@ -464,13 +464,13 @@ echo
 echo "Not a fan of Gutenberg Editor ? You can switch to Classic Editor"
 echo "If you run into Gutenberg Editor issues, you can later switch to"
 echo "the Classic Editor https://wordpress.org/plugins/classic-editor/"
-read -ep "Install Classic Editor Wordpress Plugin ? [y/n]: " -i n wpclassic_editor
+read -ep "Install Classic Editor Wordpress Plugin ? [y/n]: " -i y wpclassic_editor
 
 echo
 echo "Autoptimize WP Plugin is installed by default. Do you want to install"
 echo "companion Autoptimize Gzip Plugin to precompresses js/css optimized files"
 echo "details at https://community.centminmod.com/threads/15314/"
-read -ep "Install Autoptimize Gzip Companion Wordpress Plugin ? [y/n]: " -i n wpautoptimize_gzip
+read -ep "Install Autoptimize Gzip Companion Wordpress Plugin ? [y/n]: " -i y wpautoptimize_gzip
 
 if [[ "$wpautoptimize_gzip" = [yY] ]]; then
   WP_AUTOPTIMIZE_GZIP='y'
@@ -481,7 +481,7 @@ echo "Google Native LazyLoad Plugin https://wordpress.org/plugins/native-lazyloa
 read -ep "Install Google Native LazyLoad Plugin ? [y/n]: " -i n wp_google_lazyload
 
 echo
-read -ep "Set custom WP Admin Display Name ? [y/n]: " setdisplayname
+read -ep "Set custom WP Admin Display Name ? [y/n]: " -i n setdisplayname
 if [[ "$setdisplayname" = [yY] ]]; then
   read -ep "Enter Custom WP Admin Display Name: " displayname
   WPADMIN_DISPLAYNAME=$displayname
@@ -514,7 +514,7 @@ if [[ "$disableautogen" = [yY] ]]; then
   cecho "--------------------------" $boldgreen
   cecho "Please choose a stronger Username/Password Combination" $boldyellow
   echo
-  read -ep "Enter desired WP Admin Username: " WPADMINUSER
+  read -ep "Enter desired WP Admin Username: " -i siteadmin WPADMINUSER
   read -ep "Enter desired WP Admin Password: " WPADMINPASS
 
   CHECKWPADMINPASSWD="$(cracklib-check <<<"$WPADMINPASS")"
@@ -561,20 +561,20 @@ if [[ "$WP_FASTCGI_CACHE" = [yY] ]]; then
   if [[ "$redis_ngx_exists" = [yY] ]]; then
 PS3='--------------------------------------------------------
 Enter option [ 1 - 4 ] '
-select_wpcache_opts=("KeyCDN Cache Enabler" "Redis Nginx Level Caching" "Wordpress Super Cache" "Fastcgi_cache (PHP-FPM)")
+select_wpcache_opts=("KeyCDN Cache Enabler" "Varnish" "WP Rocket Cache" "Fastcgi_cache (PHP-FPM)")
   else
 PS3='--------------------------------------------------------
 Enter option [ 1 - 3 ] '
-select_wpcache_opts=("KeyCDN Cache Enabler" "Wordpress Super Cache" "Fastcgi_cache (PHP-FPM)")
+select_wpcache_opts=("KeyCDN Cache Enabler" "WP Rocket Cache" "Fastcgi_cache (PHP-FPM)")
   fi
 elif [[ "$redis_ngx_exists" = [yY] ]]; then
 PS3='--------------------------------------------------------
 Enter option [ 1 - 3 ] '
-select_wpcache_opts=("KeyCDN Cache Enabler" "Redis Nginx Level Caching" "Wordpress Super Cache")
+select_wpcache_opts=("KeyCDN Cache Enabler" "Varnish" "WP Rocket Cache")
 else
 PS3='--------------------------------------------------------
 Enter option [ 1 - 2 ] '
-select_wpcache_opts=("KeyCDN Cache Enabler" "Wordpress Super Cache")
+select_wpcache_opts=("KeyCDN Cache Enabler" "WP Rocket Cache")
 fi
 select optwp in "${select_wpcache_opts[@]}"; do
 case $optwp in
@@ -586,7 +586,7 @@ case $optwp in
     echo
     break
     ;;
-  "Redis Nginx Level Caching" )
+  "Varnish" )
     wpscache='redis'
     wpcache_option=$REPLY
     echo
@@ -594,11 +594,11 @@ case $optwp in
     echo
     break
     ;;
-  "Wordpress Super Cache" )
+  "WP Rocket Cache" )
     wpscache='y'
     wpcache_option=$REPLY
     echo
-    echo "you selected option $wpcache_option (Wordpress Super Cache) [wpscache=$wpscache]"
+    echo "you selected option $wpcache_option (WP Rocket Cache) [wpscache=$wpscache]"
     echo
     break
     ;;
@@ -797,6 +797,17 @@ cat > "/usr/local/nginx/conf/wpincludes/${vhostname}/wpcacheenabler_${vhostname}
         set \$cache_uri 'nullcache';
     }
 
+    # include query strings fbclid, gclid, utm in cache via stripping them with
+    # 302 redirect via mapping in /usr/local/nginx/conf/wpcacheenabler_map.conf
+    if (\$q_ignorearg) {
+      set \$check_qurl \$request_uri;
+      set \$check_surl \$request_uri;
+      set \$cache_uri \$uri;
+      #rewrite ^ \$uri? redirect;
+    }
+    add_header Check-Querystring-Uri "\$check_qurl";
+    #add_header Q-Ignore-Arg "\$q_ignorearg";
+
     # bypass cache if URLs containing the following strings
     if (\$request_uri ~* "(\?add-to-cart=|\?wc-api=|/cart/|/my-account/|/checkout/|/shop/checkout/|/wp-json/|/store/checkout/|/customer-dashboard/|/addons/|/wp-admin/|/xmlrpc.php|/wp-(app|cron|login|register|mail).php|wp-.*.php|/feed/|index.php|wp-comments-popup.php|wp-links-opml.php|wp-locations.php|sitemap(_index)?.xml|[a-z0-9_-]+-sitemap([0-9]+)?.xml)") {
         set \$cache_uri 'nullcache';
@@ -827,11 +838,11 @@ cat > "/usr/local/nginx/conf/wpincludes/${vhostname}/wpcacheenabler_${vhostname}
     #add_header Set-Uri "\$cache_uri";
 
     # default html file
-    set \$cache_enabler_uri '\${custom_subdir}/wp-content/cache/cache-enabler/\${http_host}\${cache_uri}index.html';
+    set \$cache_enabler_uri '\${custom_subdir}/wp-content/cache/cache-enabler/\${http_host}\${cache_uri}\${scheme}-index.html';
 
     # webp html file
     if (\$http_accept ~* "image/webp") {
-        set \$cache_enabler_uri_webp '\${custom_subdir}/wp-content/cache/cache-enabler/\${http_host}\${cache_uri}index-webp.html';
+        set \$cache_enabler_uri_webp '\${custom_subdir}/wp-content/cache/cache-enabler/\${http_host}\${cache_uri}\${scheme}-index-webp.html';
     }
 HFA
 
@@ -847,6 +858,24 @@ map \$http_user_agent \$cmwpcache_device {
     "~*Tablet"                                  'mobile';
     "~*Kindle"                                  'mobile';
     "~*Windows\ Phone"                          'mobile';
+}
+
+map \$args \$q_ignorearg {
+  default               0;
+  "~*fbclid"            1;
+  "~*gclid"             1;
+  "~*utm"               1;
+  "~*fb_action_ids"     1;
+  "~*fb_action_types"   1;
+  "~*fb_source"         1;
+  "~*age-verified"      1;
+  "~*ao_noptimize"      1;
+  "~*usqp"              1;
+  "~*cn-reloaded"       1;
+  "~*_ga"               1;
+  "~*_ke"               1;
+  "~*mc_cid"            1;
+  "~*mc_eid"            1;
 }
 HFB
 
@@ -881,7 +910,7 @@ location ~ [^/]\.php(/|\$) {
     more_set_headers 'X-Cache-2 \$srcache_store_status';
 
     fastcgi_pass   127.0.0.1:9000;
-    #fastcgi_pass   unix:/tmp/php5-fpm.sock;
+    #fastcgi_pass   unix:/var/run/php-fpm/php-fpm.sock;
     fastcgi_index  index.php;
     #fastcgi_param  SCRIPT_FILENAME  \$document_root\$fastcgi_script_name;
     fastcgi_param  SCRIPT_FILENAME    \$request_filename;
@@ -895,9 +924,9 @@ location ~ [^/]\.php(/|\$) {
 #tcp_nopush off;
 #keepalive_requests 0;
 
-fastcgi_connect_timeout 60s;
-fastcgi_send_timeout 180s;
-fastcgi_read_timeout 300s;
+fastcgi_connect_timeout 360s;
+fastcgi_send_timeout 360s;
+fastcgi_read_timeout 360s;
 fastcgi_buffer_size 32k;
 fastcgi_buffers 512 32k;
 fastcgi_busy_buffers_size 1m;
@@ -984,7 +1013,7 @@ location ~ [^/]\.php(/|\$) {
     more_set_headers 'X-Cache-2 \$srcache_store_status';
 
     fastcgi_pass   127.0.0.1:9000;
-    #fastcgi_pass   unix:/tmp/php5-fpm.sock;
+    #fastcgi_pass   unix:/var/run/php-fpm/php-fpm.sock;
     fastcgi_index  index.php;
     #fastcgi_param  SCRIPT_FILENAME  \$document_root\$fastcgi_script_name;
     fastcgi_param  SCRIPT_FILENAME    \$request_filename;
@@ -998,9 +1027,9 @@ location ~ [^/]\.php(/|\$) {
 #tcp_nopush off;
 #keepalive_requests 0;
 
-fastcgi_connect_timeout 60s;
-fastcgi_send_timeout 180s;
-fastcgi_read_timeout 300s;
+fastcgi_connect_timeout 360s;
+fastcgi_send_timeout 360s;
+fastcgi_read_timeout 360s;
 fastcgi_buffer_size 32k;
 fastcgi_buffers 512 32k;
 fastcgi_busy_buffers_size 1m;
@@ -1236,7 +1265,7 @@ server {
   # Enables directory listings when index file not found
   #autoindex  on;
 
-  # for wordpress super cache plugin
+  # for WP Rocket Cache plugin
   try_files /wp-content/cache/supercache/\$http_host/\$cache_uri/index.html \$uri \$uri/ ${WPSUBDIR}/index.php?q=\$uri&\$args;
 
   # for wp cache enabler plugin
@@ -1379,7 +1408,7 @@ server {
   # Enables directory listings when index file not found
   #autoindex  on;
 
-  # for wordpress super cache plugin
+  # for WP Rocket Cache plugin
   try_files /wp-content/cache/supercache/\$http_host/\$cache_uri/index.html \$uri \$uri/ ${WPSUBDIR}/index.php?q=\$uri&\$args;
 
   # for wp cache enabler plugin
@@ -1500,7 +1529,7 @@ server {
   # Enables directory listings when index file not found
   #autoindex  on;
 
-  # for wordpress super cache plugin
+  # for WP Rocket Cache plugin
   try_files /wp-content/cache/supercache/\$http_host/\$cache_uri/index.html \$uri \$uri/ ${WPSUBDIR}/index.php?q=\$uri&\$args;
 
   # for wp cache enabler plugin
@@ -2406,7 +2435,11 @@ if [[ "$wpscache" = [nN] ]]; then
   cecho "------------------------------------------------------------" $boldgreen 
   # \wp plugin install optimus --activate --allow-root
   echo "configure cache-enabler"
-  \wp option update cache-enabler '{"expires":6,"new_post":1,"new_comment":1,"webp":0,"clear_on_upgrade":1,"compress":1,"excl_ids":"","excl_regexp":"","excl_cookies":"","excl_querystrings":"","minify_html":0}' --format=json --allow-root
+  \wp option update cache-enabler '{"expires":6,"clear_on_upgrade":1,"new_post":1,"new_comment":1,"update_product_stock":0,"webp":0,"compress":1,"excl_ids":"","excl_paths":"","excl_cookies":"","incl_parameters":"","minify_html":0}' --format=json --allow-root
+  if [[ "$WPCLI_CE_QUERYSTRING_INCLUDED" = [yY] ]]; then
+    \wp option patch update cache-enabler incl_parameters '/^fbclid|mc_(cid|eid)|utm_(source|medium|campaign|term|content|expid)|gclid|fb_(action_ids|action_types|source)|age-verified|ao_noptimize|usqp|cn-reloaded|_ga|_ke$/' --allow-root
+    \wp option pluck cache-enabler incl_parameters --format=json --allow-root
+  fi
   \wp option get cache-enabler --format=json --allow-root
   # add define('WP_CACHE', true); to wp-config.php
   if [ ! "$(grep -w 'WP_CACHE' wp-config.php)" ]; then
@@ -2863,6 +2896,9 @@ if [ -f "${SCRIPT_DIR}/tools/autoprotect.sh" ]; then
 fi
 
 cmservice nginx reload
+echo
+nginx -t
+echo
 
 cmservice php-fpm restart
 if [[ "$PUREFTPD_DISABLED" = [nN] ]]; then
