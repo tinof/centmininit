@@ -909,8 +909,8 @@ location ~ [^/]\.php(/|\$) {
     more_set_headers 'X-Cache \$srcache_fetch_status';
     more_set_headers 'X-Cache-2 \$srcache_store_status';
 
-    fastcgi_pass   127.0.0.1:9000;
-    #fastcgi_pass   unix:/var/run/php-fpm/php-fpm.sock;
+    #fastcgi_pass   127.0.0.1:9000;
+    fastcgi_pass   unix:/var/run/php-fpm/php-fpm.sock;
     fastcgi_index  index.php;
     #fastcgi_param  SCRIPT_FILENAME  \$document_root\$fastcgi_script_name;
     fastcgi_param  SCRIPT_FILENAME    \$request_filename;
@@ -920,9 +920,9 @@ location ~ [^/]\.php(/|\$) {
 # which don't pass on a content length header
 # slightly faster page response time at the
 # expense of throughput / scalability
-#sendfile on;
-#tcp_nopush off;
-#keepalive_requests 0;
+sendfile on;
+tcp_nopush off;
+keepalive_requests 0;
 
 fastcgi_connect_timeout 360s;
 fastcgi_send_timeout 360s;
