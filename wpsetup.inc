@@ -2527,6 +2527,10 @@ cecho "------------------------------------------------------------" $boldgreen
 cecho "------------------------------------------------------------" $boldgreen
 \wp plugin install cdn-enabler --activate --allow-root
 cecho "------------------------------------------------------------" $boldgreen
+\wp plugin install all-in-one-wp-migration --activate --allow-root
+cecho "------------------------------------------------------------" $boldgreen
+\wp plugin install wpperformancetester --activate --allow-root
+cecho "------------------------------------------------------------" $boldgreen
 
 if [[ "$WPPLUGINS_ALL" = [yY] ]]; then
   \wp plugin install rocket-lazy-load --activate --allow-root
