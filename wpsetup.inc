@@ -408,9 +408,9 @@ done
 
 if [[ "$NGINX_VHOSTSSL" = [yY] ]]; then
   echo
-  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " vhostssl
+  read -ep "Create a self-signed SSL certificate Nginx vhost? [y/n]: " -i n vhostssl
   if [[ -f "${SCRIPT_DIR}/addons/acmetool.sh" && "$LETSENCRYPT_DETECT" = [yY] ]]; then
-    read -ep "Get Letsencrypt SSL certificate Nginx vhost? [y/n]: " vhostssl_le
+    read -ep "Get Letsencrypt SSL certificate Nginx vhost? [y/n]: " -i y vhostssl_le
     if [[ "$vhostssl_le" = [yY] ]]; then
       echo
       echo "You have 4 options: "
@@ -418,7 +418,7 @@ if [[ "$NGINX_VHOSTSSL" = [yY] ]]; then
       echo "2. issue staging test cert with HTTPS default (untrusted)"
       echo "3. issue live cert with HTTP + HTTPS (trusted)"
       echo "4. issue live cert with HTTPS default (trusted)"
-      read -ep "Enter option number 1-4: " vhostssl_opt
+      read -ep "Enter option number 1-4: " -i 4 vhostssl_opt
       if [[ "$vhostssl_opt" = '1' ]]; then
         vhostssl='le'
       elif [[ "$vhostssl_opt" = '2' ]]; then
@@ -464,7 +464,7 @@ echo
 echo "Not a fan of Gutenberg Editor ? You can switch to Classic Editor"
 echo "If you run into Gutenberg Editor issues, you can later switch to"
 echo "the Classic Editor https://wordpress.org/plugins/classic-editor/"
-read -ep "Install Classic Editor Wordpress Plugin ? [y/n]: " -i y wpclassic_editor
+read -ep "Install Classic Editor Wordpress Plugin ? [y/n]: " -i n wpclassic_editor
 
 echo
 echo "Autoptimize WP Plugin is installed by default. Do you want to install"
@@ -515,7 +515,7 @@ if [[ "$disableautogen" = [yY] ]]; then
   cecho "Please choose a stronger Username/Password Combination" $boldyellow
   echo
   read -ep "Enter desired WP Admin Username: " -i siteadmin WPADMINUSER
-  read -ep "Enter desired WP Admin Password: " WPADMINPASS
+  read -ep "Enter desired WP Admin Password: " -i WPADMINPASS
 
   CHECKWPADMINPASSWD="$(cracklib-check <<<"$WPADMINPASS")"
   okay="$(awk -F': ' '{ print $2}' <<<"$CHECKWPADMINPASSWD")"
@@ -2524,8 +2524,6 @@ cecho "------------------------------------------------------------" $boldgreen
 \wp plugin install sucuri-scanner --activate --allow-root
 cecho "------------------------------------------------------------" $boldgreen
 \wp plugin install disable-xml-rpc --activate --allow-root
-cecho "------------------------------------------------------------" $boldgreen
-\wp plugin install cdn-enabler --activate --allow-root
 cecho "------------------------------------------------------------" $boldgreen
 \wp plugin install all-in-one-wp-migration --activate --allow-root
 cecho "------------------------------------------------------------" $boldgreen
