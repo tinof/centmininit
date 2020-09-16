@@ -10,9 +10,6 @@ wget https://raw.githubusercontent.com/tinof/centmininit/master/custom_config.in
 yum -y update; curl -O https://raw.githubusercontent.com/centminmod/centminmod/123.09beta01/installer74.sh && chmod 0700 installer74.sh && bash installer74.sh
 
 
-# setup extended CSF Firewall blocklists https://community.centminmod.com/posts/50060/
-/usr/local/src/centminmod/tools/csf-advancetweaks.sh
-
 # enable CSF Firewall native fail2ban like support
 # https://community.centminmod.com/posts/62343/
 csf --profile backup backup-b4-customregex
@@ -26,14 +23,10 @@ egrep 'CUSTOM1_LOG|CUSTOM2_LOG|CUSTOM3_LOG|CUSTOM4_LOG' /etc/csf/csf.conf
 wget -O /usr/local/csf/bin/regex.custom.pm https://gist.github.com/centminmod/f5551b92b8aba768c3b4db84c57e756d/raw/regex.custom.pm
 csf -ra
 
-yum update --enablerepo=city-fan.org --disableplugin=priorities
 
 # MALDET 
 wget https://raw.githubusercontent.com/tinof/centmininit/master/maldet.sh -O /usr/local/src/centminmod/addons/maldet.sh
 /usr/local/src/centminmod/addons/maldet.sh
 
-# MAIL
-wget https://raw.githubusercontent.com/tinof/centmininit/master/email.ini -O /etc/centminmod/email-primary.ini
-wget https://raw.githubusercontent.com/tinof/centmininit/master/email.ini -O /etc/centminmod/email-secondary.ini
 
 echo "Done!"
