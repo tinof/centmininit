@@ -7,7 +7,7 @@ wget https://raw.githubusercontent.com/tinof/centmininit/master/custom_config.in
 
 
 # install centmin mod latest beta with php-fpm 7.4 default
-yum -y update; curl -O https://centminmod.com/betainstaller74.sh && chmod 0700 betainstaller74.sh && bash betainstaller74.sh
+yum -y update; curl -O https://raw.githubusercontent.com/centminmod/centminmod/123.09beta01/installer74.sh && chmod 0700 installer74.sh && bash installer74.sh
 
 
 # setup extended CSF Firewall blocklists https://community.centminmod.com/posts/50060/
