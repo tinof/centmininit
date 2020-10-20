@@ -1,3 +1,0 @@
-
-alias home=”ssh -i ~/.ssh/mykep.pem tecmint@192.168.0.100”
-echo "alias cmod='pushd /usr/local/src/centminmod/'" >> /root/.bashrc
