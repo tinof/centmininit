@@ -1,6 +1,7 @@
 WPPLUGINS_ALL='n' 
 
 VHOSTCTRL_CLOUDFLAREINC='y'
+CLOUDFLARE_ZLIB='y'
 
 ENABLEMOTD_CSFMSG='n'         # motd banner csf message alert disaply
 ENABLEMOTD_LINKSMSG='n'       # motd centminmod.com links bookmark alert display
