@@ -7,7 +7,7 @@ Note run package-cleanup --oldkernels --count=1 after restart
 ### The go ahead and install Centminmod (PHP 7.4)
 wget https://raw.githubusercontent.com/tinof/centmininit/master/centmin.sh; chmod +x centmin.sh; ./centmin.sh
 
-### GOVERNOR FIX for EPYC2
+### GOVERNOR FIX for Dedicated AMD ZEN2/ZEN3 servers
 cpupower frequency-set --governor performance
 
 
