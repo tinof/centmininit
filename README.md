@@ -4,7 +4,7 @@ Install optimized Centminmod, developed by George Liu (eva2000).
 yum -y install wget yum-utils; yum -y upgrade; wget https://raw.githubusercontent.com/tinof/centmininit/master/kernel5.sh; chmod +x kernel5.sh; ./kernel5.sh
 
 
-### The go ahead and install Centminmod (PHP 7.4)
+### Then go ahead and install Centminmod (PHP 7.4)
 wget https://raw.githubusercontent.com/tinof/centmininit/master/centmin.sh; chmod +x centmin.sh; ./centmin.sh
 
 
