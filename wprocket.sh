@@ -1,5 +1,5 @@
-printf "${GREEN}To install WP Rocket Nginx support for centminmod.com hosted domain,\nplease input your domain (example something.com)${NC}"
-printf "\nNote: This script assumes you are using SSL"
+printf "Note: This script assumes you are using SSL"
+printf "\n${GREEN}To install WP Rocket Nginx support for centminmod.com hosted domain,\nplease input your domain (example something.com):${NC}"
 read domain
 
 sed -i 's/php-wpsc/php/g' /usr/local/nginx/conf/conf.d/$domain.ssl.conf
