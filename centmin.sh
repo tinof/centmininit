@@ -42,7 +42,7 @@ wget https://raw.githubusercontent.com/tinof/centmininit/master/maldet.sh -O /us
 /usr/local/src/centminmod/addons/maldet.sh
 
 cd /usr/local/src/centminmod/addons/; ./customcurl.sh
-yum update --enablerepo=city-fan.org --disableplugin=priorities
-package-cleanup --oldkernels --count=1
+yum update -y --enablerepo=city-fan.org --disableplugin=priorities
+package-cleanup -y --oldkernels --count=1
 
 echo "Done!"
