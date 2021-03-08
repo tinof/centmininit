@@ -8,7 +8,7 @@ wget https://raw.githubusercontent.com/tinof/centmininit/master/custom_config.in
 
 # install centmin mod latest beta with php-fpm 7.4 default
 yum -y update
-curl -O https://raw.githubusercontent.com/centminmod/centminmod/123.09beta01/installer80.sh && chmod 0700 installer80.sh && bash installer80.sh
+curl -O https://raw.githubusercontent.com/centminmod/centminmod/123.09beta01/installer74.sh && chmod 0700 installer80.sh && bash installer74.sh
 
 # pre-create Nginx HTTPS site’s dhparam file before hand to speed up subsequent Nginx vhost creation routines. On slow systems, this command will take a few minutes to complete.
 openssl dhparam -out /usr/local/nginx/conf/ssl/dhparam.pem 2048
