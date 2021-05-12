@@ -1,6 +1,6 @@
 #!/bin/bash
 ################################################
-# GCC 8 install for Centmin Mod on CentOS
+# GCC 11 install for Centmin Mod on CentOS
 # https://gcc.gnu.org/wiki/InstallingGCC
 # https://gcc.gnu.org/wiki/FAQ#configure
 # https://gcc.gnu.org/releases.html
