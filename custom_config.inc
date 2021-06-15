@@ -1,6 +1,6 @@
 WPPLUGINS_ALL='n' 
 
-#VHOSTCTRL_CLOUDFLAREINC='y'
+VHOSTCTRL_CLOUDFLAREINC='y'
 CLOUDFLARE_ZLIB='y'
 
 ENABLEMOTD_CSFMSG='n'         # motd banner csf message alert disaply
@@ -19,9 +19,6 @@ NGINX_IOURING_PATCH_BETA='y'
 
 ##Upgrading NGINX. Disable, if custom configs  
 NGINX_ALLOWOVERRIDE='y'  
-
-#NGINX_FATLTO_OBJECTS='n'        # enable -ffat-lto-objects flag for nginx builds - much slower compile times
-#NGINX_NOFATLTO_OBJECTS='n'      # enable -fno-fat-lto-objects flag for nginx builds - much slower compile times
 
 NGINX_DYNAMICTLS='y'  
 NGINX_SSLCACHE_ALLOWOVERRIDE='y'    
@@ -51,8 +48,8 @@ CRYPTO_DEVTOOLSETGCC='y'
 CUSTOM_CURLRPM='y'
 CUSTOM_CURLRPMVER='7.69.0'       # custom curl/libcurl version
 
-PHP_PGO='y'
-PHP_PGO_ALWAYS='y'
+#PHP_PGO='y'
+#PHP_PGO_ALWAYS='y'
 
 
 #PHPPGO_INDEXPATH='/home/nginx/domains/XX/public/index.php'
@@ -70,7 +67,7 @@ ZSTD_LOGROTATE_PHPFPM='y'
  
 MARCH_TARGETNATIVE_ALWAYS='y'
 
-PHPFINFO='y'
+PHPFINFO='n'
 WP_FASTCGI_CACHE='y'
 LETSENCRYPT_DETECT='y'
 PHP_UPDATEMAINTENANCE='y'
