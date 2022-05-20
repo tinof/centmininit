@@ -725,63 +725,6 @@ elif [ -f /usr/bin/sar ]; then
   fi
 fi
 
-if [ -f /proc/user_beancounters ]; then
-    echo "OpenVZ system detected, NTP not installed"
-elif [[ "$CHECK_LXD" = [yY] ]]; then
-    echo "LXC/LXD container system detected, NTP not installed"
-else
-  if [[ "$CENTOS_EIGHT" = '8' ]]; then
-      echo
-      time $YUMDNFBIN -y install chrony
-      systemctl start chronyd
-      systemctl enable chronyd
-      systemctl status chronyd
-      echo "current chrony ntp servers"
-      chronyc sources
-  else
-    if [ ! -f /usr/sbin/ntpd ]; then
-      echo "*************************************************"
-      echo "* Installing NTP (and syncing time)"
-      echo "*************************************************"
-      echo "The date/time before was:"
-      date
-      echo
-      time $YUMDNFBIN -y install ntp
-      chkconfig ntpd on
-      if [ -f /etc/ntp.conf ]; then
-        if [[ -z "$(grep 'logfile' /etc/ntp.conf)" ]]; then
-            echo "logfile /var/log/ntpd.log" >> /etc/ntp.conf
-            ls -lahrt /var/log | grep 'ntpd.log'
-        fi
-        echo "current ntp servers"
-        NTPSERVERS=$(awk '/server / {print $2}' /etc/ntp.conf | grep ntp.org | sort -r)
-        for s in $NTPSERVERS; do
-          if [ -f /usr/bin/nc ]; then
-            echo -ne "\n$s test connectivity: "
-            if [[ "$(echo | nc -u -w1 $s 53 >/dev/null 2>&1 ;echo $?)" = '0' ]]; then
-            echo " ok"
-            else
-            echo " error"
-            fi
-          fi
-            ntpdate -q $s | tail -1
-            if [[ -f /etc/ntp/step-tickers && -z "$(grep $s /etc/ntp/step-tickers )" ]]; then
-            echo "$s" >> /etc/ntp/step-tickers
-            fi
-        done
-        if [ -f /etc/ntp/step-tickers ]; then
-            echo -e "\nsetup /etc/ntp/step-tickers server list\n"
-            cat /etc/ntp/step-tickers
-        fi
-        service ntpd restart >/dev/null 2>&1
-        echo -e "\ncheck ntpd peers list"
-        ntpdc -p
-      fi
-    fi
-  fi
-  echo "The date/time is now:"
-  date
-fi
 
 # only run for CentOS 6.x
 if [[ "$CENTOS_SIX" = '6' ]]; then
