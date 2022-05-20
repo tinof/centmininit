@@ -4,7 +4,7 @@ yum -y upgrade
 # create initial persistent config file to override centmin.sh defaults
 # https://centminmod.com/upgrade.html#persistent
 mkdir -p /etc/centminmod
-wget https://raw.githubusercontent.com/tinof/centmininit/master/custom_config.inc -O /etc/centminmo$
+wget https://raw.githubusercontent.com/tinof/centmininit/master/custom_config.inc -O /etc/centminmod/custom_config.inc
 
 # install centmin mod latest beta with php-fpm 8.1 default
 yum -y update
@@ -25,8 +25,8 @@ openssl dhparam -out /usr/local/nginx/conf/ssl/dhparam.pem 2048
 csf --profile backup backup-b4-customregex
 cp -a /usr/local/csf/bin/regex.custom.pm /usr/local/csf/bin/regex.custom.pm.bak
 egrep 'CUSTOM1_LOG|CUSTOM2_LOG|CUSTOM3_LOG|CUSTOM4_LOG' /etc/csf/csf.conf
-sed -i "s|CUSTOM1_LOG = .*|CUSTOM1_LOG = \"/home/nginx/domains/\*/log/access.log\"|" /etc/csf/csf.c$
-sed -i "s|CUSTOM2_LOG = .*|CUSTOM2_LOG = \"/home/nginx/domains/\*/log/error.log\"|" /etc/csf/csf.co$
+sed -i "s|CUSTOM1_LOG = .*|CUSTOM1_LOG = \"/home/nginx/domains/\*/log/access.log\"|" /etc/csf/csf.conf
+sed -i "s|CUSTOM2_LOG = .*|CUSTOM2_LOG = \"/home/nginx/domains/\*/log/error.log\"|" /etc/csf/csf.conf
 sed -i "s|CUSTOM3_LOG = .*|CUSTOM3_LOG = \"/var/log/nginx/localhost.access.log\"|" /etc/csf/csf.conf
 sed -i "s|CUSTOM4_LOG = .*|CUSTOM4_LOG = \"/var/log/nginx/localhost.error.log\"|" /etc/csf/csf.conf
 egrep 'CUSTOM1_LOG|CUSTOM2_LOG|CUSTOM3_LOG|CUSTOM4_LOG' /etc/csf/csf.conf
@@ -42,8 +42,8 @@ crontab cronjoblist
 
 
 # MALDET
-wget https://raw.githubusercontent.com/tinof/centmininit/master/maldet.sh -O /usr/local/src/centmin$
-/usr/local/src/centminmod/addons/maldet.sh
+wget https://raw.githubusercontent.com/tinof/centmininit/master/maldet.sh -O /usr/local/src/centminmod/addons/maldet.sh
+./usr/local/src/centminmod/addons/maldet.sh
 
 cd /usr/local/src/centminmod/addons/; ./customcurl.sh
 
