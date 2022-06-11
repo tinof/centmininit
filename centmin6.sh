@@ -8,7 +8,7 @@ wget https://raw.githubusercontent.com/tinof/centmininit/master/custom_config.in
 echo "FORCE_IPVFOUR='n'" >> /etc/centminmod/custom_config.inc
 
 # install centmin mod latest beta with php-fpm 7.4 default
-curl -O https://raw.githubusercontent.com/tinof/centmininit/main/installer-alma.sh && chmod 0700 installer-alma.sh && bash installer-alma.sh
+yum -y update; curl -O https://centminmod.com/betainstaller81.sh && chmod 0700 betainstaller81.sh && bash betainstaller81.sh
 
 # CPU Governor High Performance mode & Kernel clean up
 #cpupower frequency-set --governor performance
