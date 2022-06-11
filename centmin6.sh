@@ -12,7 +12,8 @@ yum -y update; curl -O https://centminmod.com/betainstaller81.sh && chmod 0700 b
 
 # CPU Governor High Performance mode & Kernel clean up
 #cpupower frequency-set --governor performance
-#package-cleanup -y --oldkernels --count=1
+
+package-cleanup -y --oldkernels --count=1
 
 # pre-create Nginx HTTPS site’s dhparam file before hand to speed up subsequent Nginx vhost creatio$
 openssl dhparam -out /usr/local/nginx/conf/ssl/dhparam.pem 2048
