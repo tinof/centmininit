@@ -7,12 +7,12 @@ mkdir -p /etc/centminmod
 wget https://raw.githubusercontent.com/tinof/centmininit/master/custom_config.inc -O /etc/centminmod/custom_config.inc
 
 # install centmin mod latest beta with php-fpm 8.1 default
-yum -y update
-yum -y update; curl -O https://centminmod.com/betainstaller81.sh && chmod 0700 betainstaller81.sh && bash betainstaller81.sh
+curl -O https://centminmod.com/betainstaller81.sh && chmod 0700 betainstaller81.sh && bash betainstaller81.sh
 
 # CPU Governor High Performance mode & Kernel clean up
 #cpupower frequency-set --governor performance
-#package-cleanup -y --oldkernels --count=1
+
+package-cleanup -y --oldkernels --count=1
 
 # pre-create Nginx HTTPS site’s dhparam file before hand to speed up subsequent Nginx vhost creatio$
 openssl dhparam -out /usr/local/nginx/conf/ssl/dhparam.pem 2048
