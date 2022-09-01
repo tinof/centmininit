@@ -5,3 +5,4 @@ echo "include_only=.nl,.fi" >> /etc/yum/pluginconf.d/fastestmirror.conf
 yum -y --enablerepo=elrepo-kernel install kernel-ml
 echo "GRUB_DEFAULT=0" >> /etc/default/grub
 grub2-mkconfig -o /boot/grub2/grub.cfg
+reboot
