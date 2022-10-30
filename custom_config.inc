@@ -3,18 +3,18 @@ WPPLUGINS_ALL='n'
 VHOSTCTRL_CLOUDFLAREINC='y'
 CLOUDFLARE_ZLIB='y'
 
-ENABLEMOTD_CSFMSG='n'         # motd banner csf message alert disaply
-ENABLEMOTD_LINKSMSG='n'       # motd centminmod.com links bookmark alert display
+#ENABLEMOTD_CSFMSG='y'         # motd banner csf message alert disaply
+#ENABLEMOTD_LINKSMSG='y'       # motd centminmod.com links bookmark alert display
 
 AUTOTUNE_CLIENTMAXBODY='y'
 
-## FOR PHP 7.4+
-#FPM_WAKEUP_PATCH='y'
+
+#FPM_WAKEUP_PATCH='y'          # FOR PHP 7.4+
 
 AUTODETECPHP_OVERRIDE='y'
 
-##For Linux Kernel > 5.x
-NGINX_IOURING_PATCH_BETA='y'
+
+NGINX_IOURING_PATCH_BETA='y'   # For Linux Kernel > 5.x
 
 NGINX_ALLOWOVERRIDE='y'
 NGINXCPU_AUTOTUNE_NEW='y'
@@ -25,6 +25,10 @@ AUTOHARDTUNE_NGINXBACKLOG='y'
 
 MARIADB_INSTALLTENTHREE='n'
 MARIADB_INSTALLTENFOUR='y'
+
+NGINX_UPDATEMAINTENANCE='y'
+PHP_UPDATEMAINTENANCE='y'
+MARIADB_UPDATEMAINTENANCE='y'
 
 SET_DEFAULT_MYSQLCHARSET='utf8mb4'
 
@@ -37,6 +41,7 @@ GCC_FALIGN_FUNCTION='y'
 
 LIBRESSL_SWITCH='n'
 CLANG='n'
+DEVTOOLSETTEN='n'
 DEVTOOLSETELEVEN='y'
 NGINX_DEVTOOLSETGCC='y'
 GENERAL_DEVTOOLSETGCC='y'
@@ -45,8 +50,8 @@ CRYPTO_DEVTOOLSETGCC='y'
 CUSTOM_CURLRPM='y'
 CUSTOM_CURLRPMVER='7.69.0'       # custom curl/libcurl version
 
-#PHP_PGO='y'
-#PHP_PGO_ALWAYS='y'
+PHP_PGO='y'
+#PHP_PGO_ALWAYS='y'              # Force PGO for 1 core servers
 
 #PHPPGO_INDEXPATH='/home/nginx/domains/XX/public/index.php'
 #PHPPGO_INDEXPATH_TWO='/home/nginx/domains/XX/public/index.php'
