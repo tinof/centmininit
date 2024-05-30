@@ -1,6 +1,7 @@
-
 ENABLEMOTD_CSFMSG='y'         # motd banner csf message alert disaply
 ENABLEMOTD_LINKSMSG='y'       # motd centminmod.com links bookmark alert display
+
+DMOTD_PHPCHECK='y'
 
 # WordPress plugins
 WPPLUGINS_ALL='n'
@@ -38,8 +39,6 @@ NGINX_SSLCACHE_ALLOWOVERRIDE='y'
 NGINX_LIBBROTLI='y'
 AUTOHARDTUNE_NGINXBACKLOG='y'
 NGINX_UPDATEMAINTENANCE='y'
-NGINX_VERSION='1.24.1'
-NGINX_ONETWOTHREE_COMPAT='y'
 NGINX_HPACK='y'
 NGINX_PCRE_TWO='y'
 NGXDYNAMIC_BROTLI='y'
