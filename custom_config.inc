@@ -1,5 +1,19 @@
-ENABLEMOTD_CSFMSG='y'         # motd banner csf message alert disaply
-ENABLEMOTD_LINKSMSG='y'       # motd centminmod.com links bookmark alert display
+ENABLEMOTD_CSFMSG='n'         # motd banner csf message alert disaply
+ENABLEMOTD_LINKSMSG='n'       # motd centminmod.com links bookmark alert display
+
+CMGIT='https://github.com/centminmod/centminmod.git'
+AUTO_GITUPDATE='y'
+
+CF_DNSAPI='y'
+CF_KEY=''
+CF_EMAIL=''
+
+MM_LICENSE_KEY=''
+MM_CSF_SRC='y'
+
+# Linker flags
+NGX_LDGOLD='y'               # Use the GNU Gold linker
+NGX_LDMOLD='y'               # Option to use the mold linker
 
 DMOTD_PHPCHECK='y'
 
@@ -22,8 +36,11 @@ PHP_LZFOUR='y'
 PHP_LZF='y'
 PHP_ZSTD='y'
 PHP_MEMCACHE='n'
-PHPREDIS='y'
+#PHPREDIS='n'
 DMOTD_PHPCHECK='y'
+
+# PHP update maintenance settings
+PHP_UPDATEMAINTENANCE='y'
 
 # PHP PGO settings
 #PHP_PGO='y'
@@ -39,30 +56,24 @@ NGINX_SSLCACHE_ALLOWOVERRIDE='y'
 NGINX_LIBBROTLI='y'
 AUTOHARDTUNE_NGINXBACKLOG='y'
 NGINX_UPDATEMAINTENANCE='y'
-NGINX_HPACK='y'
-NGINX_PCRE_TWO='y'
-NGXDYNAMIC_BROTLI='y'
-REDIS_SERVER_INSTALL='y'
-
+#NGINX_HPACK='y'
+#NGXDYNAMIC_BROTLI='y'
+#REDIS_SERVER_INSTALL='n'
 # Nginx caching settings
 #WP_FASTCGI_CACHE='y'
 NGINX_STAPLE_CACHE_OVERRIDE='y'
 NGINX_STAPLE_CACHE_TTL='86400'
 
-# Nginx ModSecurity settings
 SSL_PROTOCOL_MODERN='y'
 NGINX_MODSECURITY='y'
+NGINX_QUIC_SUPPORT='y'
+BORINGSSL_SWITCH='y' 
 
-# Additional Nginx settings
 WPCLI_CE_QUERYSTRING_INCLUDED='y'
 TCP_BBR_ENABLE='y'
 NGINX_GEOIPTWOLITE='y'
 NGXDYNAMIC_GEOIPTWOLITE='y'
-#NGX_LDMOLD='y'
-#PHP_LDMOLD='y'
-
-# PHP update maintenance settings
-PHP_UPDATEMAINTENANCE='y'
+PHP_LDMOLD='y'
 
 # MariaDB settings
 MARIADB_INSTALLTENTHREE='n'
@@ -77,8 +88,8 @@ ENABLE_MARIADBTENSIXUPGRADE='y'
 
 # SSL settings
 LETSENCRYPT_DETECT='y'
-DUALCERTS='y'
-SELFSIGNEDSSL_ECDSA='y'
+#DUALCERTS='y'
+#SELFSIGNEDSSL_ECDSA='y'
 
 # Log rotation settings
 ZSTD_LOGROTATE_NGINX='y'
@@ -88,9 +99,9 @@ ZSTD_LOGROTATE_PHPFPM='y'
 GCC_FALIGN_FUNCTION='y'
 LIBRESSL_SWITCH='n'
 CLANG='n'
-DEVTOOLSETTEN='n'
 DEVTOOLSETELEVEN='n'
-DEVTOOLSETTWELVE='y'
+DEVTOOLSETTWELVE='n'
+DEVTOOLSETTHIRTEEN='y'
 NGINX_DEVTOOLSETGCC='y'
 GENERAL_DEVTOOLSETGCC='y'
 CRYPTO_DEVTOOLSETGCC='y'
