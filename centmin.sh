@@ -30,8 +30,7 @@ $PKG_MANAGER -y update
 
 # MariaDB 10.6 default with PHP 8.0 default
 yum -y update
-yum -y install epel-release
-curl -4sL https://centminmod.com/installer-el8x-mariadb10.6.sh -o installer-el8x-mariadb10.6.sh; bash installer-el8x-mariadb10.6.sh
+curl -O https://centminmod.com/betainstaller83.sh && chmod 0700 betainstaller83.sh && bash betainstaller83.sh
 
 # Create initial persistent config file to override centmin.sh defaults
 mkdir -p /etc/centminmod
