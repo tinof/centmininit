@@ -37,9 +37,6 @@ mkdir -p /etc/centminmod
 wget https://raw.githubusercontent.com/tinof/centmininit/master/custom_config.inc -O /etc/centminmod/custom_config.inc
 
 # CPU Governor High Performance mode for dedicated servers
-if ! is_vps; then
-  cpupower frequency-set --governor performance
-fi
 
 # Pre-create Nginx HTTPS site’s dhparam file to speed up subsequent Nginx vhost creation
 openssl dhparam -out /usr/local/nginx/conf/ssl/dhparam.pem 2048
